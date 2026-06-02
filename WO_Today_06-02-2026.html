@@ -457,15 +457,33 @@ function openModal(wo) {
   // Store wo for modal note prompts
   document.getElementById('wo-modal').dataset.wo = wo;
   document.getElementById('wo-modal').classList.add('open');
+  setTimeout(function() {
+    var row = document.querySelector('.chk[data-wo="' + wo + '"]');
+    var tr = row ? row.closest('tr') : null;
+    var fitL = (data.fit||'').toLowerCase(); var emailL = (data.email||'').toLowerCase(); var combined = fitL+' '+emailL;
+    var bestType = 'dispatched';
+    if (tr && tr.classList.contains('green-l')) { bestType = /\d+(am|pm)/i.test(combined) ? 'scheduled_today' : 'scheduled_week'; }
+    else if (/material|ship|order/i.test(combined)) bestType = 'material';
+    else if (/follow|await|waiting/i.test(combined)) bestType = 'followup_sent';
+    else if (/schedul|thursday|friday|monday|tuesday|wednesday/i.test(combined)) bestType = 'scheduled_week';
+    var map = {scheduled_today:'cnb_sched_today_',scheduled_week:'cnb_sched_week_',dispatched:'cnb_dispatched_',material:'cnb_material_',followup_sent:'cnb_followup_'};
+    var ab = document.getElementById((map[bestType]||'cnb_dispatched_')+wo);
+    if (ab) { ab.style.background='#1e3a8a'; ab.style.color='#93c5fd'; ab.style.borderColor='#3b82f6'; copyModalNote(ab, bestType); }
+  }, 150);
 }
 
 function copyModalNote(btn, type) {
   var wo = document.getElementById('wo-modal').dataset.wo;
   var h = new Date().getHours();
   var greeting = h < 12 ? 'Good morning,' : h < 17 ? 'Good afternoon,' : 'Good evening,';
+  var d2 = WO_DATA[wo]||{}; var comb2 = (d2.fit||'').toLowerCase()+' '+(d2.email||'').toLowerCase();
+  var tm = comb2.match(/(\d{1,2}[:\-]\d{2}\s*(?:am|pm)?(?:\s*(?:cst|pst|mst|est))?|\d{1,2}\s*(?:am|pm)(?:\s*(?:cst|pst|mst|est))?)/i);
+  var schedT = tm ? ' at '+tm[0].toUpperCase() : '';
+  var dm = comb2.match(/(monday|tuesday|wednesday|thursday|friday|saturday|sunday|tomorrow|\d{1,2}\/\d{1,2})/i);
+  var schedD = dm ? ' '+dm[0] : ' this week';
   var templates = {
-    scheduled_today: greeting + ' we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.',
-    scheduled_week: greeting + ' we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.',
+    scheduled_today: greeting + ' we can confirm our technician is scheduled to be on-site today' + schedT + '. We will provide an update ASAP. Thank you for your patience.',
+    scheduled_week: greeting + ' we can confirm our technician is scheduled to be on-site' + schedD + (schedT&&schedD?' at '+tm[0].toUpperCase():'') + '. We will provide an update ASAP. Thank you for your patience.',
     dispatched: greeting + ' we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.',
     material: greeting + ' the required materials for this work order have been ordered and are expected to arrive shortly. We will schedule installation once received. Thank you for your patience.',
     followup_sent: greeting + ' we have followed up with our technician regarding this work order and are awaiting their response. We will provide an update ASAP. Thank you for your patience.',
@@ -493,7 +511,8 @@ function saveModalNote(wo) {
   if (ta) ta.value = data.note;
   var nb = document.getElementById('nb' + wo);
   if (nb && data.note) nb.classList.add('has-note');
-  alert('Notes saved for WO ' + wo);
+  var btn2 = document.querySelector('#wo-modal button[onclick^="saveModalNote"]');
+  if (btn2) { var orig = btn2.textContent; btn2.textContent = '\u2713 Saved!'; setTimeout(function(){ btn2.textContent = orig; }, 1500); }
 }
 
 function closeModal() {
@@ -739,7 +758,7 @@ window.addEventListener('DOMContentLoaded', function() {
 <!-- Completed / History Queue -->
 <div class="history-wrap" id="history-wrap">
   <div class="history-hdr" onclick="toggleHistory()">
-    <span>&#10003; Completed Today (<span id="history-count">0</span>)</span>
+    <span>&#10003; Completed (<span id="history-count">0</span>)</span>
     <span id="history-chevron">&#9660;</span>
   </div>
   <div class="history-list" id="history-list"></div>
