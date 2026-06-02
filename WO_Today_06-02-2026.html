@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FL All Dispatch ÃÂ¢ÃÂÃÂ June 2, 2026</title>
+<title>FL All Dispatch — June 2, 2026</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:13px;background:#0f1117;color:#e2e8f0;padding:16px}
@@ -118,6 +118,7 @@ tr.done td{opacity:.25}
 .status-filter-btn{font-size:10px;font-weight:bold;padding:4px 10px;border:1px solid #334155;background:#0f172a;color:#64748b;border-radius:20px;cursor:pointer;white-space:nowrap}
 .status-filter-btn:hover{color:#e2e8f0;border-color:#475569}
 .status-filter-btn.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+#rsm-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#16a34a;color:#fff;padding:10px 20px;border-radius:6px;font-size:12px;font-weight:bold;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.4);opacity:0;transition:opacity .3s;pointer-events:none}
 
 /* Tabs */
 .tab-nav{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid #334155;padding-bottom:0}
@@ -159,10 +160,12 @@ tr.done td{opacity:.25}
 </style>
 </head>
 <body>
+<div id="rsm-toast"></div>
 <div class="tab-nav">
-  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">ÃÂ°ÃÂÃÂÃÂ Board</button>
-  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">ÃÂ°ÃÂÃÂÃÂ Templates</button>
-  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">ÃÂ°ÃÂÃÂÃÂ¢ Vendors</button>
+  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">&#128203; Board</button>
+  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">&#128221; Templates</button>
+  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">&#127970; Vendors</button>
+  <button class="tab-btn" id="btn-history" onclick="showTab('history')">&#128337; History</button>
 </div>
 
 <div id="tab-board" class="tab-content active">
@@ -175,17 +178,17 @@ tr.done td{opacity:.25}
     &#128260; Update Board
   </button>
 </div>
-<div id="status-filter-bar" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding:8px 12px;background:#1e293b;border:1px solid #334155;border-radius:6px">
+<div id="status-filter-bar" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;padding:8px 12px;background:#1e293b;border:1px solid #334155;border-radius:6px">
   <span style="font-size:10px;color:#64748b;font-weight:bold;text-transform:uppercase;align-self:center;margin-right:4px">Filter + Update:</span>
-  <button class="status-filter-btn active" data-status="all" onclick="filterByStatus('all',this)">All</button>
-  <button class="status-filter-btn" data-status="new" onclick="filterByStatus('new',this)">Ã¢ÂÂ¡ New</button>
-  <button class="status-filter-btn" data-status="confirmed" onclick="filterByStatus('confirmed',this)">Ã¢ÂÂ Confirmed</button>
-  <button class="status-filter-btn" data-status="scheduling" onclick="filterByStatus('scheduling',this)">Ã°ÂÂÂ Needs Scheduling</button>
-  <button class="status-filter-btn" data-status="materials" onclick="filterByStatus('materials',this)">Ã°ÂÂÂ¦ Hold Materials</button>
-  <button class="status-filter-btn" data-status="action" onclick="filterByStatus('action',this)">Ã¢ÂÂ  Needs Action</button>
-  <button class="status-filter-btn" data-status="quote" onclick="filterByStatus('quote',this)">Ã°ÂÂÂ° Quote</button>
+  <button class="status-filter-btn active" onclick="filterByStatus('all',this)">All</button>
+  <button class="status-filter-btn" onclick="filterByStatus('new',this)">&#9889; New</button>
+  <button class="status-filter-btn" onclick="filterByStatus('confirmed',this)">&#10003; Confirmed</button>
+  <button class="status-filter-btn" onclick="filterByStatus('scheduling',this)">&#128197; Needs Scheduling</button>
+  <button class="status-filter-btn" onclick="filterByStatus('materials',this)">&#128230; Hold Materials</button>
+  <button class="status-filter-btn" onclick="filterByStatus('action',this)">&#9888; Needs Action</button>
+  <button class="status-filter-btn" onclick="filterByStatus('quote',this)">&#128176; Quote</button>
 </div>
-<div class="meta">Blue bar = FIT Followup Comment &bull; Email = most recent vendor reply &bull; Green border = confirmed on-site &bull; Red = action needed &bull; Yellow = new update today</div>
+<div class="meta">Blue bar = FIT note &bull; Green border = confirmed on-site &bull; Red = action needed &bull; Yellow = new update today</div>
 
 
 <!-- Search Bar -->
@@ -260,12 +263,12 @@ function DD(btn,ev){if(ev){ev.stopPropagation();ev.preventDefault();}var m=btn.c
 var TT={eta:{s:function(w,l){return 'WO #'+w+' Follow-Up | '+l;},b:function(w,l){return 'Hi Team,\n\nFollowing up on WO #'+w+' at '+l+'.\n\nCould you please provide a schedule date / tech ETA?\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},schedule:{s:function(w,l){return 'Schedule Needed - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nPlease confirm a date and time for WO #'+w+' at '+l+'.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},confirm:{s:function(w,l){return 'Completion Confirmation - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nCould you please confirm completion of WO #'+w+' at '+l+'?\n\nPlease send photos and close-out notes.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},return_:{s:function(w,l){return 'Return Trip - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nWO #'+w+' at '+l+' requires a return visit. Please advise on availability.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}}};
 function T(type,wo,loc,vendor){var t=TT[type]||TT.eta;var w=window.open('https://outlook.cloud.microsoft/mail/deeplink/compose?subject='+encodeURIComponent(t.s(wo,loc))+'&body='+encodeURIComponent(t.b(wo,loc)),'outlook_drafts');if(w)setTimeout(function(){try{w.blur();window.focus();}catch(e){}},200);var sb=document.getElementById('sb'+wo);if(sb){sb.querySelector('.split-main').textContent='Drafted';sb.classList.add('drafted');}document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});}
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Notes ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── Notes ─────────────────────────────────────────────────
 function toggleNotes(wo) {
   var panel = document.getElementById('notes-' + wo);
   var btn = document.getElementById('nb' + wo);
   var isOpen = panel.classList.toggle('open');
-  btn.textContent = isOpen ? 'ÃÂ¢ÃÂÃÂ Close' : 'ÃÂ°ÃÂÃÂÃÂ Notes';
+  btn.textContent = isOpen ? '✕ Close' : '📝 Notes';
   if (isOpen) loadNote(wo);
 }
 function loadNote(wo) {
@@ -288,13 +291,13 @@ function saveNote(wo) {
   };
   localStorage.setItem('wonote_' + wo, JSON.stringify(data));
   var btn = document.getElementById('note-save-' + wo);
-  btn.textContent = 'ÃÂ¢ÃÂÃÂ Saved!'; btn.classList.add('saved');
+  btn.textContent = '✓ Saved!'; btn.classList.add('saved');
   setTimeout(function(){ btn.textContent = 'Save Notes'; btn.classList.remove('saved'); }, 2000);
   var nb = document.getElementById('nb' + wo);
   if (nb && data.note) nb.classList.add('has-note');
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ History Queue ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── History Queue ─────────────────────────────────────────
 var historyItems = JSON.parse(localStorage.getItem('wo_history') || '[]');
 
 function D(chk) {
@@ -350,7 +353,7 @@ function renderHistory() {
   var count = document.getElementById('history-count');
   if (!list) return;
   count.textContent = historyItems.length;
-  var count2 = document.getElementById('history-count2'); if(count2) count2.textContent = historyItems.length;
+  var count2 = document.getElementById('history-count2'); if (count2) count2.textContent = historyItems.length;
   if (historyItems.length === 0) { list.innerHTML = '<div style="padding:12px;font-size:11px;color:#475569;text-align:center">No completed WOs yet today</div>'; return; }
   list.innerHTML = historyItems.map(function(item) {
     return '<div class="history-item"><div class="wo-tag">' + item.wo + '</div><div class="hist-info"><div style="color:#64748b;font-size:11px">' + (item.loc||'').split('\n')[0] + '</div><div style="color:#475569;font-size:10px;margin-top:2px">Completed ' + (item.time||'') + '</div></div><button class="history-undo" onclick="undoHistory(\'' + item.wo + '\')">&#8617; Undo</button></div>';
@@ -361,10 +364,10 @@ function toggleHistory() {
   var list = document.getElementById('history-list');
   var chev = document.getElementById('history-chevron');
   list.classList.toggle('open');
-  chev.textContent = list.classList.contains('open') ? 'ÃÂ¢ÃÂÃÂ²' : 'ÃÂ¢ÃÂÃÂ¼';
+  chev.textContent = list.classList.contains('open') ? '▲' : '▼';
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Search ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── Search ────────────────────────────────────────────────
 function searchWO(val) {
   val = val.trim();
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
@@ -402,7 +405,7 @@ function searchWO(val) {
   });
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ WO Detail Modal ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── WO Detail Modal ───────────────────────────────────────
 var WO_DATA = {};
 document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
   var wo = row.querySelector('[data-wo]');
@@ -440,13 +443,13 @@ function openModal(wo) {
     </div>
     <div class="modal-section">
       <div class="modal-section-label">&#128203; Quick Client Note</div>
-      <div class="client-note-btns">
-        <button class="cn-prompt" onclick="copyModalNote(this,'scheduled_today')">&#10004; Scheduled Today</button>
-        <button class="cn-prompt" onclick="copyModalNote(this,'scheduled_week')">&#128197; Scheduled This Week</button>
-        <button class="cn-prompt" onclick="copyModalNote(this,'dispatched')">&#9889; Dispatched</button>
-        <button class="cn-prompt" onclick="copyModalNote(this,'material')">&#128230; Material Ordered</button>
-        <button class="cn-prompt" onclick="copyModalNote(this,'followup_sent')">&#128139; Follow-Up Sent</button>
-        <button class="cn-prompt" onclick="copyModalNote(this,'custom')">&#128221; Custom (from notes)</button>
+      <div class="client-note-btns" id="modal-note-btns-${wo}">
+        <button class="cn-prompt" id="cnb_sched_today_${wo}" onclick="copyModalNote(this,'scheduled_today')">&#10004; Scheduled Today</button>
+        <button class="cn-prompt" id="cnb_sched_week_${wo}" onclick="copyModalNote(this,'scheduled_week')">&#128197; Scheduled This Week</button>
+        <button class="cn-prompt" id="cnb_dispatched_${wo}" onclick="copyModalNote(this,'dispatched')">&#9889; Dispatched</button>
+        <button class="cn-prompt" id="cnb_material_${wo}" onclick="copyModalNote(this,'material')">&#128230; Material Ordered</button>
+        <button class="cn-prompt" id="cnb_followup_${wo}" onclick="copyModalNote(this,'followup_sent')">&#128139; Follow-Up Sent</button>
+        <button class="cn-prompt" id="cnb_custom_${wo}" onclick="copyModalNote(this,'custom')">&#128221; Custom (from notes)</button>
       </div>
       <div id="modal-note-preview" style="font-size:11px;color:#67e8f9;background:#0c2333;border:1px solid #164e63;border-radius:4px;padding:6px 8px;display:none;line-height:1.5"></div>
     </div>
@@ -472,33 +475,56 @@ function openModal(wo) {
   // Store wo for modal note prompts
   document.getElementById('wo-modal').dataset.wo = wo;
   document.getElementById('wo-modal').classList.add('open');
+  // Auto-highlight best note type based on status
   setTimeout(function() {
     var row = document.querySelector('.chk[data-wo="' + wo + '"]');
     var tr = row ? row.closest('tr') : null;
-    var fitL = (data.fit||'').toLowerCase(); var emailL = (data.email||'').toLowerCase(); var combined = fitL+' '+emailL;
+    var fit = (data.fit || '').toLowerCase();
+    var email = (data.email || '').toLowerCase();
+    var combined = fit + ' ' + email;
     var bestType = 'dispatched';
-    if (tr && tr.classList.contains('green-l')) { bestType = /\d+(am|pm)/i.test(combined) ? 'scheduled_today' : 'scheduled_week'; }
-    else if (/material|ship|order/i.test(combined)) bestType = 'material';
-    else if (/follow|await|waiting/i.test(combined)) bestType = 'followup_sent';
-    else if (/schedul|thursday|friday|monday|tuesday|wednesday/i.test(combined)) bestType = 'scheduled_week';
-    var map = {scheduled_today:'cnb_sched_today_',scheduled_week:'cnb_sched_week_',dispatched:'cnb_dispatched_',material:'cnb_material_',followup_sent:'cnb_followup_'};
-    var ab = document.getElementById((map[bestType]||'cnb_dispatched_')+wo);
-    if (ab) { ab.style.background='#1e3a8a'; ab.style.color='#93c5fd'; ab.style.borderColor='#3b82f6'; copyModalNote(ab, bestType); }
-  }, 150);
+    if (tr && tr.classList.contains('green-l')) {
+      bestType = combined.match(/today|11am|12pm|1pm|2pm|3pm|4pm|5pm|am|pm/) ? 'scheduled_today' : 'scheduled_week';
+    } else if (combined.indexOf('material') > -1 || combined.indexOf('shipped') > -1 || combined.indexOf('ordered') > -1) {
+      bestType = 'material';
+    } else if (combined.indexOf('follow') > -1 || combined.indexOf('waiting') > -1 || combined.indexOf('awaiting') > -1) {
+      bestType = 'followup_sent';
+    } else if (combined.indexOf('schedul') > -1 || combined.indexOf('thursday') > -1 || combined.indexOf('friday') > -1 || combined.indexOf('monday') > -1 || combined.indexOf('tuesday') > -1 || combined.indexOf('wednesday') > -1) {
+      bestType = 'scheduled_week';
+    }
+    var typeMap = { scheduled_today: 'cnb_sched_today_', scheduled_week: 'cnb_sched_week_', dispatched: 'cnb_dispatched_', material: 'cnb_material_', followup_sent: 'cnb_followup_' };
+    var btnId = (typeMap[bestType] || 'cnb_dispatched_') + wo;
+    var autoBtn = document.getElementById(btnId);
+    if (autoBtn) { autoBtn.style.background = '#1e3a8a'; autoBtn.style.color = '#93c5fd'; autoBtn.style.borderColor = '#3b82f6'; }
+    // Auto-copy the best note
+    if (autoBtn) copyModalNote(autoBtn, bestType);
+  }, 100);
+
 }
 
 function copyModalNote(btn, type) {
   var wo = document.getElementById('wo-modal').dataset.wo;
   var h = new Date().getHours();
   var greeting = h < 12 ? 'Good morning,' : h < 17 ? 'Good afternoon,' : 'Good evening,';
-  var d2 = WO_DATA[wo]||{}; var comb2 = (d2.fit||'').toLowerCase()+' '+(d2.email||'').toLowerCase();
-  var tm = comb2.match(/(\d{1,2}[:\-]\d{2}\s*(?:am|pm)?(?:\s*(?:cst|pst|mst|est))?|\d{1,2}\s*(?:am|pm)(?:\s*(?:cst|pst|mst|est))?)/i);
-  var schedT = tm ? ' at '+tm[0].toUpperCase() : '';
-  var dm = comb2.match(/(monday|tuesday|wednesday|thursday|friday|saturday|sunday|tomorrow|\d{1,2}\/\d{1,2})/i);
-  var schedD = dm ? ' '+dm[0] : ' this week';
+  var data = WO_DATA[wo] || {};
+  var fitNote = (data.fit || '').toLowerCase();
+  var emailNote = (data.email || '').toLowerCase();
+  var combined = fitNote + ' ' + emailNote;
+  // Extract schedule date/time if present
+  var timeMatch = combined.match(/(\d{1,2}[:\-]\d{2}\s*(?:am|pm)?(?:\s*(?:cst|pst|mst|est))?|\d{1,2}\s*(?:am|pm)(?:\s*(?:cst|pst|mst|est))?)/i);
+  var schedTime = timeMatch ? timeMatch[0].toUpperCase() : '';
+  var dateMatch = combined.match(/(monday|tuesday|wednesday|thursday|friday|saturday|sunday|today|tomorrow|\d{1,2}\/\d{1,2})/i);
+  var schedDate = dateMatch ? dateMatch[0] : '';
+  // Build personalized note bodies
+  var todayNote = schedTime ?
+    greeting + ' we can confirm our technician is scheduled to be on-site today' + (schedTime ? ' at ' + schedTime : '') + '. We will provide an update ASAP. Thank you for your patience.' :
+    greeting + ' we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.';
+  var weekNote = schedDate && schedDate.toLowerCase() !== 'today' ?
+    greeting + ' we can confirm our technician is scheduled to be on-site ' + schedDate + (schedTime ? ' at ' + schedTime : '') + '. We will provide an update ASAP. Thank you for your patience.' :
+    greeting + ' we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.';
   var templates = {
-    scheduled_today: greeting + ' we can confirm our technician is scheduled to be on-site today' + schedT + '. We will provide an update ASAP. Thank you for your patience.',
-    scheduled_week: greeting + ' we can confirm our technician is scheduled to be on-site' + schedD + (schedT&&schedD?' at '+tm[0].toUpperCase():'') + '. We will provide an update ASAP. Thank you for your patience.',
+    scheduled_today: todayNote,
+    scheduled_week: weekNote,
     dispatched: greeting + ' we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.',
     material: greeting + ' the required materials for this work order have been ordered and are expected to arrive shortly. We will schedule installation once received. Thank you for your patience.',
     followup_sent: greeting + ' we have followed up with our technician regarding this work order and are awaiting their response. We will provide an update ASAP. Thank you for your patience.',
@@ -509,7 +535,7 @@ function copyModalNote(btn, type) {
   if (preview) { preview.textContent = note; preview.style.display = 'block'; }
   if (navigator.clipboard) navigator.clipboard.writeText(note);
   else { var ta = document.createElement('textarea'); ta.value=note; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
-  var orig = btn.textContent; btn.textContent = 'ÃÂ¢ÃÂÃÂ Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
+  var orig = btn.textContent; btn.textContent = '✓ Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
   setTimeout(function(){ btn.textContent=orig; btn.style.color=''; btn.style.borderColor=''; }, 2000);
 }
 
@@ -527,7 +553,7 @@ function saveModalNote(wo) {
   var nb = document.getElementById('nb' + wo);
   if (nb && data.note) nb.classList.add('has-note');
   var btn2 = document.querySelector('#wo-modal button[onclick^="saveModalNote"]');
-  if (btn2) { var orig = btn2.textContent; btn2.textContent = '\u2713 Saved!'; setTimeout(function(){ btn2.textContent = orig; }, 1500); }
+  if (btn2) { var orig = btn2.textContent; btn2.textContent = '✓ Saved!'; setTimeout(function(){ btn2.textContent = orig; }, 1500); }
 }
 
 function closeModal() {
@@ -539,18 +565,87 @@ function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 // Close modal on overlay click
 document.getElementById('wo-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Update Board Button ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── Update Board Button ───────────────────────────────────
 function copyUpdatePrompt() {
-  var prompt = 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features (tabs, notes, dropdowns, templates, vendor stats), then upload to rsm-wo-board.tiiny.site via the tiiny.host Update flow.';
+  var prompt = getStatusPrompt('all') || 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/';
   if (navigator.clipboard) navigator.clipboard.writeText(prompt);
   else { var ta=document.createElement('textarea');ta.value=prompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
   var btn = document.getElementById('update-board-btn');
-  btn.textContent = 'ÃÂ¢ÃÂÃÂ Prompt Copied ÃÂ¢ÃÂÃÂ Paste in Claude';
+  btn.textContent = '✓ Prompt Copied — Paste in Claude';
   btn.style.background = '#16a34a';
   setTimeout(function(){ btn.innerHTML = '&#128260; Update Board'; btn.style.background = '#1d4ed8'; }, 3000);
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Tab Navigation ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── PAT Management ───────────────────────────────────────
+function savePAT() {
+  var val = (document.getElementById('pat-input')||{}).value||'';
+  val = val.trim();
+  if (!val) return;
+  localStorage.setItem('rsm_gh_pat', val);
+  var st = document.getElementById('pat-status');
+  if (st) { st.textContent = '&#10003; Saved'; setTimeout(function(){ st.textContent=''; }, 2000); }
+  if (document.getElementById('pat-input')) document.getElementById('pat-input').value = '';
+}
+function loadPATField() {
+  var stored = localStorage.getItem('rsm_gh_pat');
+  var el = document.getElementById('pat-status');
+  if (el) el.textContent = stored ? '&#10003; PAT saved (' + stored.slice(0,8) + '...)' : 'No PAT saved yet';
+}
+
+// ── Toast ─────────────────────────────────────────────────
+function showToast(msg) {
+  var t = document.getElementById('rsm-toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(function(){ t.style.opacity = '0'; }, 3000);
+}
+
+// ── Status Filter + Prompt Copy ──────────────────────────
+var STATUS_TPL_IDS = { all:'status_all', new:'status_new', confirmed:'status_confirmed', scheduling:'status_scheduling', materials:'status_materials', action:'status_action', quote:'status_quote' };
+
+function getStatusPrompt(status) {
+  var tplId = STATUS_TPL_IDS[status]; if (!tplId) return null;
+  var tpls = loadTemplates();
+  var tpl = tpls.find(function(t){ return t.id === tplId; });
+  var body = tpl ? (document.getElementById('tbody_'+tplId) ? document.getElementById('tbody_'+tplId).value : tpl.body) : null;
+  if (body) { var ghpat = localStorage.getItem('rsm_gh_pat')||'{GH_PAT}'; body = body.replace(/\{GH_PAT\}/g, ghpat); }
+  return body;
+}
+
+function filterByStatus(status, btn) {
+  document.querySelectorAll('.status-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  // Copy prompt if not All
+  if (status !== 'all') {
+    var prompt = getStatusPrompt(status) || ('Run WO board update for status: ' + status);
+    if (navigator.clipboard) navigator.clipboard.writeText(prompt).catch(function(){});
+    else { var ta=document.createElement('textarea');ta.value=prompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
+    showToast('Prompt copied — paste in Cowork to run update');
+  }
+  // Filter rows
+  document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
+    if (status === 'all') { if (!row.querySelector('.chk:checked')) row.style.display = ''; return; }
+    var show = false;
+    if (status === 'new' && row.classList.contains('yellow-l')) show = true;
+    else if (status === 'confirmed' && row.classList.contains('green-l')) show = true;
+    else if (status === 'action' && row.classList.contains('red-l')) show = true;
+    else if (status === 'quote' && row.classList.contains('orange-l')) show = true;
+    else if (status === 'scheduling') { var ft=(row.querySelector('.fit')||{}).textContent||''; var em=(row.querySelector('.email')||{}).textContent||''; var c=ft.toLowerCase()+em.toLowerCase(); show=!row.classList.contains('green-l')&&!row.classList.contains('red-l')&&(c.indexOf('schedul')>-1||c.indexOf('accept')>-1); }
+    else if (status === 'materials') { var ft2=((row.querySelector('.fit')||{}).textContent||'').toLowerCase(); show=ft2.indexOf('material')>-1||ft2.indexOf('ship')>-1||ft2.indexOf('part')>-1; }
+    if (!row.querySelector('.chk:checked')) row.style.display = show ? '' : 'none';
+    var wo=(row.querySelector('[data-wo]')||{}).dataset; var nr=wo&&wo.wo?document.getElementById('notes-row-'+wo.wo):null;
+    if (nr) nr.style.display = show ? '' : 'none';
+  });
+  document.querySelectorAll('.section-hdr').forEach(function(hdr) {
+    var tbl=hdr.nextElementSibling; if (!tbl||tbl.tagName!=='TABLE') return;
+    var vis=Array.from(tbl.querySelectorAll('tbody tr:not(.notes-row)')).some(function(r){ return r.style.display!=='none'; });
+    hdr.style.display=vis?'':'none'; tbl.style.display=vis?'':'none';
+  });
+}
+
+// ── Tab Navigation ────────────────────────────────────────
 function showTab(name) {
   document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
   document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -561,15 +656,15 @@ function showTab(name) {
   if (name === 'history') { renderHistory(); var c2=document.getElementById('history-count2'); if(c2) c2.textContent=historyItems.length; }
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Templates ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── Templates ─────────────────────────────────────────────
 var DEFAULT_TEMPLATES = [
-  { id: 'status_new', title: '🔄 Update: New / Just Dispatched', body: 'Run WO board update for status: New / Just Dispatched. Open FIT in Chrome, filter to newly dispatched work orders, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
-  { id: 'status_confirmed', title: '✓ Update: Schedule Confirmed', body: 'Run WO board update for status: Schedule Confirmed. Open FIT in Chrome, filter to Schedule Confirmed work orders, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
-  { id: 'status_scheduling', title: '📅 Update: Assignment Pending / Schedule Needed', body: 'Run WO board update for status: Assignment Pending and Schedule Needed. Open FIT in Chrome, filter to those statuses, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
-  { id: 'status_materials', title: '📦 Update: Hold For Materials', body: 'Run WO board update for status: Hold For Materials. Open FIT in Chrome, filter to Hold For Materials work orders, search Outlook emails for any vendor updates or delivery confirmations, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
-  { id: 'status_action', title: '⚠ Update: Needs Action / Vendor Declined', body: 'Run WO board update for status: Needs Action. Open FIT in Chrome, filter to declined or problem work orders, search Outlook emails for any responses, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
-  { id: 'status_quote', title: '💰 Update: Quote Required / Return Trip', body: 'Run WO board update for status: Quote Required and Return Trip Required. Open FIT in Chrome, filter to those statuses, search Outlook emails for quote responses or return trip confirmations, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
-  { id: 'status_all', title: '🔄 Update: Full Board (All Statuses)', body: 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features (tabs, notes, dropdowns, templates, vendor stats), then push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_all',      title: 'Update: Full Board (All Statuses)', body: 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features, then push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_new',      title: 'Update: New / Just Dispatched', body: 'Run WO board update for status: New / Just Dispatched. Open FIT in Chrome, filter to newly dispatched work orders, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_confirmed', title: 'Update: Schedule Confirmed', body: 'Run WO board update for status: Schedule Confirmed. Open FIT in Chrome, filter to Schedule Confirmed work orders, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_scheduling', title: 'Update: Assignment Pending / Schedule Needed', body: 'Run WO board update for status: Assignment Pending and Schedule Needed. Open FIT in Chrome, filter to those statuses, search Outlook emails, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_materials', title: 'Update: Hold For Materials', body: 'Run WO board update for status: Hold For Materials. Open FIT in Chrome, filter to Hold For Materials work orders, search Outlook emails for delivery confirmations or updates, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_action',   title: 'Update: Needs Action / Vendor Declined', body: 'Run WO board update for status: Needs Action. Open FIT in Chrome, filter to declined or problem work orders, search Outlook emails for responses, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_quote',    title: 'Update: Quote Required / Return Trip', body: 'Run WO board update for status: Quote Required and Return Trip Required. Open FIT in Chrome, filter to those statuses, search Outlook emails for quote responses, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
   { id: 'tpl_sched_today', title: 'Scheduled Today', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.' },
   { id: 'tpl_sched_week',  title: 'Scheduled This Week', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.' },
   { id: 'tpl_dispatched',  title: 'Dispatched / Pending Date', body: 'Good {greeting}, we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.' },
@@ -611,7 +706,7 @@ function saveSingleTemplate(id) {
   tpl.body  = (document.getElementById('tbody_'  + id)||{}).value || tpl.body;
   saveTemplates(tpls);
   var btn = document.getElementById('tsave_' + id);
-  if (btn) { btn.textContent = 'ÃÂ¢ÃÂÃÂ Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
+  if (btn) { btn.textContent = '✓ Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
 }
 
 function copyTemplate(id) {
@@ -625,7 +720,7 @@ function copyTemplate(id) {
   if (navigator.clipboard) navigator.clipboard.writeText(text);
   else { var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
   var btn = document.getElementById('tcopy_' + id);
-  if (btn) { btn.textContent = 'ÃÂ¢ÃÂÃÂ Copied!'; setTimeout(function(){ btn.textContent = 'ÃÂ°ÃÂÃÂÃÂ Copy'; }, 1500); }
+  if (btn) { btn.textContent = '✓ Copied!'; setTimeout(function(){ btn.textContent = '📋 Copy'; }, 1500); }
 }
 
 function renderTemplates() {
@@ -637,17 +732,17 @@ function renderTemplates() {
     return '<div class="tpl-card" id="tplcard_' + id + '">' +
       '<input class="tpl-title-input" id="ttitle_' + id + '" value="' + esc(t.title) + '" placeholder="Template name...">' +
       '<textarea class="tpl-body-input" id="tbody_' + id + '" placeholder="Template text... use {greeting} for auto Good morning/afternoon/evening">' + esc(t.body) + '</textarea>' +
-      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> ÃÂ¢ÃÂÃÂ auto Good morning/afternoon/evening</div>' +
+      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> → auto Good morning/afternoon/evening</div>' +
       '<div class="tpl-actions">' +
-        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">ÃÂ°ÃÂÃÂÃÂ Copy</button>' +
+        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">📋 Copy</button>' +
         '<button class="tpl-save-btn" id="tsave_' + id + '" onclick="saveSingleTemplate(\'' + id + '\')">Save</button>' +
-        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">ÃÂ¢ÃÂÃÂ Delete</button>' +
+        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">✕ Delete</button>' +
       '</div>' +
     '</div>';
   }).join('');
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Vendor Stats ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+// ── Vendor Stats ──────────────────────────────────────────
 function renderVendors() {
   // Build stats from WO_DATA (populated at DOMContentLoaded)
   var stats = {};
@@ -683,12 +778,12 @@ function renderVendors() {
     return '<div class="vendor-card">' +
       '<div class="vendor-name">' + esc(name) + '</div>' +
       '<div class="vendor-stat"><span>Total WOs Today</span><span class="vendor-stat-val">' + total + '</span></div>' +
-      '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
-      (s.problem ? '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ  Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
-      (s.warn    ? '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ¡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
-      (s.pending ? '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ³ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
+      '<div class="vendor-stat"><span>✓ Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
+      (s.problem ? '<div class="vendor-stat"><span>⚠ Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
+      (s.warn    ? '<div class="vendor-stat"><span>⚡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
+      (s.pending ? '<div class="vendor-stat"><span>⏳ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
       '<div class="vendor-stat"><span>WOs</span><span class="vendor-stat-val" style="font-size:10px;color:#64748b">' + s.wos.join(', ') + '</span></div>' +
-      '<span class="vendor-note-label">ÃÂ°ÃÂÃÂÃÂ Notes</span>' +
+      '<span class="vendor-note-label">📝 Notes</span>' +
       '<textarea class="vendor-note-ta" id="vnote_' + name.replace(/\W+/g,'_') + '" placeholder="Reliability notes, contact info, issues...">' + esc(saved) + '</textarea>' +
       '<button class="vendor-save-small" onclick="saveVendorNote(\'' + name.replace(/\W+/g,'_') + '\',\'' + noteKey + '\')">Save Note</button>' +
     '</div>';
@@ -699,10 +794,10 @@ function saveVendorNote(slug, key) {
   var val = (document.getElementById('vnote_' + slug)||{}).value || '';
   localStorage.setItem(key, val);
   var btn = event.target;
-  btn.textContent = 'ÃÂ¢ÃÂÃÂ Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
+  btn.textContent = '✓ Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
 }
 
-// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Inject Notes + View buttons + notes panels into every row ÃÂ¢ÃÂÃÂ
+// ── Inject Notes + View buttons + notes panels into every row ─
 function injectNotesUI() {
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
     var woEl = row.querySelector('[data-wo]');
@@ -779,36 +874,41 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- Completed / History Queue -->
-<div class="history-wrap" id="history-wrap">
-  <div class="history-hdr" onclick="toggleHistory()">
-    <span>&#10003; Completed (<span id="history-count">0</span>)</span>
-    <span id="history-chevron">&#9660;</span>
-  </div>
-  <div class="history-list" id="history-list"></div>
-</div>
 </div><!-- end tab-board -->
 
-<!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ TEMPLATES TAB ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
-<div id="tab-templates" class="tab-content">
-  <h1 style="margin-bottom:4px">ÃÂ°ÃÂÃÂÃÂ Copy-Paste Templates</h1>
-  <div class="meta" style="margin-bottom:14px">Saved in your browser. Edit, add, and copy notes instantly.</div>
-  <div style="background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px;margin-bottom:14px">
-  <div style="font-size:12px;font-weight:bold;color:#93c5fd;margin-bottom:6px">⚙️ GitHub Settings</div>
-  <div style="font-size:11px;color:#64748b;margin-bottom:8px">Your GitHub PAT is stored only in this browser. Never shared or committed. Required for auto-push when clicking status buttons.</div>
-  <div style="display:flex;gap:8px;align-items:center">
-    <input id="pat-input" type="password" placeholder="Paste your GitHub PAT here..." style="flex:1;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 10px;font-size:12px;color:#e2e8f0;outline:none" oninput="this.style.borderColor='#3b82f6'">
-    <button onclick="savePAT()" style="font-size:11px;padding:6px 12px;background:#1d4ed8;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:bold">Save</button>
-    <span id="pat-status" style="font-size:10px;color:#64748b"></span>
+<!-- ═══════════════════ HISTORY TAB ═══════════════════ -->
+<div id="tab-history" class="tab-content">
+  <h1 style="margin-bottom:4px">&#128337; Completed WOs</h1>
+  <div class="meta" style="margin-bottom:10px">WOs you've checked off. Click Undo to move them back to the board.</div>
+  <div style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:11px;color:#64748b">Total: <strong id="history-count2">0</strong></span>
+    <button onclick="if(confirm('Clear all history?')){historyItems=[];localStorage.setItem('wo_history',JSON.stringify([]));renderHistory();}" style="font-size:10px;padding:3px 8px;border:1px solid #450a0a;background:#1f0808;color:#f87171;border-radius:3px;cursor:pointer">Clear All</button>
   </div>
+  <div class="history-list open" id="history-list" style="border-radius:4px;border:1px solid #1e293b;display:block"></div>
+  <div id="history-count" style="display:none">0</div>
 </div>
-<div id="tpl-list"></div>
+
+<!-- ═══════════════════ TEMPLATES TAB ═══════════════════ -->
+<div id="tab-templates" class="tab-content">
+  <h1 style="margin-bottom:4px">&#128221; Templates</h1>
+  <div class="meta" style="margin-bottom:10px">Edit prompts and portal notes. Saved in your browser.</div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px;margin-bottom:14px">
+    <div style="font-size:12px;font-weight:bold;color:#93c5fd;margin-bottom:6px">&#9881; GitHub Settings</div>
+    <div style="font-size:11px;color:#64748b;margin-bottom:8px">Your GitHub PAT is stored only in this browser &mdash; never committed. Required for status buttons to auto-push updates.</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input id="pat-input" type="password" placeholder="Paste your GitHub PAT here..." style="flex:1;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 10px;font-size:12px;color:#e2e8f0;outline:none">
+      <button onclick="savePAT()" style="font-size:11px;padding:6px 12px;background:#1d4ed8;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:bold">Save</button>
+      <span id="pat-status" style="font-size:10px;color:#4ade80"></span>
+    </div>
+  </div>
+  <div id="tpl-list"></div>
   <button class="add-tpl-btn" onclick="addTemplate()">+ Add Template</button>
 </div>
 
-<!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ VENDORS TAB ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
+<!-- ═══════════════════ VENDORS TAB ═══════════════════ -->
 <div id="tab-vendors" class="tab-content">
-  <h1 style="margin-bottom:4px">ÃÂ°ÃÂÃÂÃÂ¢ Vendor Tracker</h1>
-  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor ÃÂ¢ÃÂÃÂ saved in your browser.</div>
+  <h1 style="margin-bottom:4px">🏢 Vendor Tracker</h1>
+  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor — saved in your browser.</div>
   <div id="vendor-grid" class="vendor-grid"></div>
 </div>
 
