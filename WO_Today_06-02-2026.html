@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FL All Dispatch Ã¢ÂÂ June 2, 2026</title>
+<title>FL All Dispatch ÃÂ¢ÃÂÃÂ June 2, 2026</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:13px;background:#0f1117;color:#e2e8f0;padding:16px}
@@ -160,9 +160,9 @@ tr.done td{opacity:.25}
 </head>
 <body>
 <div class="tab-nav">
-  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">Ã°ÂÂÂ Board</button>
-  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">Ã°ÂÂÂ Templates</button>
-  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">Ã°ÂÂÂ¢ Vendors</button>
+  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">ÃÂ°ÃÂÃÂÃÂ Board</button>
+  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">ÃÂ°ÃÂÃÂÃÂ Templates</button>
+  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">ÃÂ°ÃÂÃÂÃÂ¢ Vendors</button>
 </div>
 
 <div id="tab-board" class="tab-content active">
@@ -178,12 +178,12 @@ tr.done td{opacity:.25}
 <div id="status-filter-bar" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding:8px 12px;background:#1e293b;border:1px solid #334155;border-radius:6px">
   <span style="font-size:10px;color:#64748b;font-weight:bold;text-transform:uppercase;align-self:center;margin-right:4px">Filter + Update:</span>
   <button class="status-filter-btn active" data-status="all" onclick="filterByStatus('all',this)">All</button>
-  <button class="status-filter-btn" data-status="new" onclick="filterByStatus('new',this)">â¡ New</button>
-  <button class="status-filter-btn" data-status="confirmed" onclick="filterByStatus('confirmed',this)">â Confirmed</button>
-  <button class="status-filter-btn" data-status="scheduling" onclick="filterByStatus('scheduling',this)">ð Needs Scheduling</button>
-  <button class="status-filter-btn" data-status="materials" onclick="filterByStatus('materials',this)">ð¦ Hold Materials</button>
-  <button class="status-filter-btn" data-status="action" onclick="filterByStatus('action',this)">â  Needs Action</button>
-  <button class="status-filter-btn" data-status="quote" onclick="filterByStatus('quote',this)">ð° Quote</button>
+  <button class="status-filter-btn" data-status="new" onclick="filterByStatus('new',this)">Ã¢ÂÂ¡ New</button>
+  <button class="status-filter-btn" data-status="confirmed" onclick="filterByStatus('confirmed',this)">Ã¢ÂÂ Confirmed</button>
+  <button class="status-filter-btn" data-status="scheduling" onclick="filterByStatus('scheduling',this)">Ã°ÂÂÂ Needs Scheduling</button>
+  <button class="status-filter-btn" data-status="materials" onclick="filterByStatus('materials',this)">Ã°ÂÂÂ¦ Hold Materials</button>
+  <button class="status-filter-btn" data-status="action" onclick="filterByStatus('action',this)">Ã¢ÂÂ  Needs Action</button>
+  <button class="status-filter-btn" data-status="quote" onclick="filterByStatus('quote',this)">Ã°ÂÂÂ° Quote</button>
 </div>
 <div class="meta">Blue bar = FIT Followup Comment &bull; Email = most recent vendor reply &bull; Green border = confirmed on-site &bull; Red = action needed &bull; Yellow = new update today</div>
 
@@ -260,12 +260,12 @@ function DD(btn,ev){if(ev){ev.stopPropagation();ev.preventDefault();}var m=btn.c
 var TT={eta:{s:function(w,l){return 'WO #'+w+' Follow-Up | '+l;},b:function(w,l){return 'Hi Team,\n\nFollowing up on WO #'+w+' at '+l+'.\n\nCould you please provide a schedule date / tech ETA?\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},schedule:{s:function(w,l){return 'Schedule Needed - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nPlease confirm a date and time for WO #'+w+' at '+l+'.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},confirm:{s:function(w,l){return 'Completion Confirmation - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nCould you please confirm completion of WO #'+w+' at '+l+'?\n\nPlease send photos and close-out notes.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},return_:{s:function(w,l){return 'Return Trip - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nWO #'+w+' at '+l+' requires a return visit. Please advise on availability.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}}};
 function T(type,wo,loc,vendor){var t=TT[type]||TT.eta;var w=window.open('https://outlook.cloud.microsoft/mail/deeplink/compose?subject='+encodeURIComponent(t.s(wo,loc))+'&body='+encodeURIComponent(t.b(wo,loc)),'outlook_drafts');if(w)setTimeout(function(){try{w.blur();window.focus();}catch(e){}},200);var sb=document.getElementById('sb'+wo);if(sb){sb.querySelector('.split-main').textContent='Drafted';sb.classList.add('drafted');}document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});}
 
-// Ã¢ÂÂÃ¢ÂÂ Notes Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Notes ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function toggleNotes(wo) {
   var panel = document.getElementById('notes-' + wo);
   var btn = document.getElementById('nb' + wo);
   var isOpen = panel.classList.toggle('open');
-  btn.textContent = isOpen ? 'Ã¢ÂÂ Close' : 'Ã°ÂÂÂ Notes';
+  btn.textContent = isOpen ? 'ÃÂ¢ÃÂÃÂ Close' : 'ÃÂ°ÃÂÃÂÃÂ Notes';
   if (isOpen) loadNote(wo);
 }
 function loadNote(wo) {
@@ -288,13 +288,13 @@ function saveNote(wo) {
   };
   localStorage.setItem('wonote_' + wo, JSON.stringify(data));
   var btn = document.getElementById('note-save-' + wo);
-  btn.textContent = 'Ã¢ÂÂ Saved!'; btn.classList.add('saved');
+  btn.textContent = 'ÃÂ¢ÃÂÃÂ Saved!'; btn.classList.add('saved');
   setTimeout(function(){ btn.textContent = 'Save Notes'; btn.classList.remove('saved'); }, 2000);
   var nb = document.getElementById('nb' + wo);
   if (nb && data.note) nb.classList.add('has-note');
 }
 
-// Ã¢ÂÂÃ¢ÂÂ History Queue Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ History Queue ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 var historyItems = JSON.parse(localStorage.getItem('wo_history') || '[]');
 
 function D(chk) {
@@ -361,10 +361,10 @@ function toggleHistory() {
   var list = document.getElementById('history-list');
   var chev = document.getElementById('history-chevron');
   list.classList.toggle('open');
-  chev.textContent = list.classList.contains('open') ? 'Ã¢ÂÂ²' : 'Ã¢ÂÂ¼';
+  chev.textContent = list.classList.contains('open') ? 'ÃÂ¢ÃÂÃÂ²' : 'ÃÂ¢ÃÂÃÂ¼';
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Search Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Search ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function searchWO(val) {
   val = val.trim();
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
@@ -402,7 +402,7 @@ function searchWO(val) {
   });
 }
 
-// Ã¢ÂÂÃ¢ÂÂ WO Detail Modal Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ WO Detail Modal ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 var WO_DATA = {};
 document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
   var wo = row.querySelector('[data-wo]');
@@ -509,7 +509,7 @@ function copyModalNote(btn, type) {
   if (preview) { preview.textContent = note; preview.style.display = 'block'; }
   if (navigator.clipboard) navigator.clipboard.writeText(note);
   else { var ta = document.createElement('textarea'); ta.value=note; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
-  var orig = btn.textContent; btn.textContent = 'Ã¢ÂÂ Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
+  var orig = btn.textContent; btn.textContent = 'ÃÂ¢ÃÂÃÂ Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
   setTimeout(function(){ btn.textContent=orig; btn.style.color=''; btn.style.borderColor=''; }, 2000);
 }
 
@@ -539,30 +539,37 @@ function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 // Close modal on overlay click
 document.getElementById('wo-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
-// Ã¢ÂÂÃ¢ÂÂ Update Board Button Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Update Board Button ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function copyUpdatePrompt() {
   var prompt = 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features (tabs, notes, dropdowns, templates, vendor stats), then upload to rsm-wo-board.tiiny.site via the tiiny.host Update flow.';
   if (navigator.clipboard) navigator.clipboard.writeText(prompt);
   else { var ta=document.createElement('textarea');ta.value=prompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
   var btn = document.getElementById('update-board-btn');
-  btn.textContent = 'Ã¢ÂÂ Prompt Copied Ã¢ÂÂ Paste in Claude';
+  btn.textContent = 'ÃÂ¢ÃÂÃÂ Prompt Copied ÃÂ¢ÃÂÃÂ Paste in Claude';
   btn.style.background = '#16a34a';
   setTimeout(function(){ btn.innerHTML = '&#128260; Update Board'; btn.style.background = '#1d4ed8'; }, 3000);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Tab Navigation Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Tab Navigation ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function showTab(name) {
   document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
   document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
   document.getElementById('tab-' + name).classList.add('active');
   document.getElementById('btn-' + name).classList.add('active');
-  if (name === 'templates') renderTemplates();
+  if (name === 'templates') { renderTemplates(); loadPATField(); }
   if (name === 'vendors') renderVendors();
   if (name === 'history') { renderHistory(); var c2=document.getElementById('history-count2'); if(c2) c2.textContent=historyItems.length; }
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Templates Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Templates ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 var DEFAULT_TEMPLATES = [
+  { id: 'status_new', title: '🔄 Update: New / Just Dispatched', body: 'Run WO board update for status: New / Just Dispatched. Open FIT in Chrome, filter to newly dispatched work orders, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_confirmed', title: '✓ Update: Schedule Confirmed', body: 'Run WO board update for status: Schedule Confirmed. Open FIT in Chrome, filter to Schedule Confirmed work orders, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_scheduling', title: '📅 Update: Assignment Pending / Schedule Needed', body: 'Run WO board update for status: Assignment Pending and Schedule Needed. Open FIT in Chrome, filter to those statuses, search Outlook emails for updates on each WO, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_materials', title: '📦 Update: Hold For Materials', body: 'Run WO board update for status: Hold For Materials. Open FIT in Chrome, filter to Hold For Materials work orders, search Outlook emails for any vendor updates or delivery confirmations, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_action', title: '⚠ Update: Needs Action / Vendor Declined', body: 'Run WO board update for status: Needs Action. Open FIT in Chrome, filter to declined or problem work orders, search Outlook emails for any responses, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_quote', title: '💰 Update: Quote Required / Return Trip', body: 'Run WO board update for status: Quote Required and Return Trip Required. Open FIT in Chrome, filter to those statuses, search Outlook emails for quote responses or return trip confirmations, rebuild the board HTML, and push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
+  { id: 'status_all', title: '🔄 Update: Full Board (All Statuses)', body: 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features (tabs, notes, dropdowns, templates, vendor stats), then push to GitHub repo kotchkowskit-lab/rsm-wo-board as index.html using PAT {GH_PAT}. Live URL: https://kotchkowskit-lab.github.io/rsm-wo-board/' },
   { id: 'tpl_sched_today', title: 'Scheduled Today', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.' },
   { id: 'tpl_sched_week',  title: 'Scheduled This Week', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.' },
   { id: 'tpl_dispatched',  title: 'Dispatched / Pending Date', body: 'Good {greeting}, we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.' },
@@ -604,7 +611,7 @@ function saveSingleTemplate(id) {
   tpl.body  = (document.getElementById('tbody_'  + id)||{}).value || tpl.body;
   saveTemplates(tpls);
   var btn = document.getElementById('tsave_' + id);
-  if (btn) { btn.textContent = 'Ã¢ÂÂ Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
+  if (btn) { btn.textContent = 'ÃÂ¢ÃÂÃÂ Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
 }
 
 function copyTemplate(id) {
@@ -618,7 +625,7 @@ function copyTemplate(id) {
   if (navigator.clipboard) navigator.clipboard.writeText(text);
   else { var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
   var btn = document.getElementById('tcopy_' + id);
-  if (btn) { btn.textContent = 'Ã¢ÂÂ Copied!'; setTimeout(function(){ btn.textContent = 'Ã°ÂÂÂ Copy'; }, 1500); }
+  if (btn) { btn.textContent = 'ÃÂ¢ÃÂÃÂ Copied!'; setTimeout(function(){ btn.textContent = 'ÃÂ°ÃÂÃÂÃÂ Copy'; }, 1500); }
 }
 
 function renderTemplates() {
@@ -630,17 +637,17 @@ function renderTemplates() {
     return '<div class="tpl-card" id="tplcard_' + id + '">' +
       '<input class="tpl-title-input" id="ttitle_' + id + '" value="' + esc(t.title) + '" placeholder="Template name...">' +
       '<textarea class="tpl-body-input" id="tbody_' + id + '" placeholder="Template text... use {greeting} for auto Good morning/afternoon/evening">' + esc(t.body) + '</textarea>' +
-      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> Ã¢ÂÂ auto Good morning/afternoon/evening</div>' +
+      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> ÃÂ¢ÃÂÃÂ auto Good morning/afternoon/evening</div>' +
       '<div class="tpl-actions">' +
-        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">Ã°ÂÂÂ Copy</button>' +
+        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">ÃÂ°ÃÂÃÂÃÂ Copy</button>' +
         '<button class="tpl-save-btn" id="tsave_' + id + '" onclick="saveSingleTemplate(\'' + id + '\')">Save</button>' +
-        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">Ã¢ÂÂ Delete</button>' +
+        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">ÃÂ¢ÃÂÃÂ Delete</button>' +
       '</div>' +
     '</div>';
   }).join('');
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Vendor Stats Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Vendor Stats ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderVendors() {
   // Build stats from WO_DATA (populated at DOMContentLoaded)
   var stats = {};
@@ -676,12 +683,12 @@ function renderVendors() {
     return '<div class="vendor-card">' +
       '<div class="vendor-name">' + esc(name) + '</div>' +
       '<div class="vendor-stat"><span>Total WOs Today</span><span class="vendor-stat-val">' + total + '</span></div>' +
-      '<div class="vendor-stat"><span>Ã¢ÂÂ Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
-      (s.problem ? '<div class="vendor-stat"><span>Ã¢ÂÂ  Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
-      (s.warn    ? '<div class="vendor-stat"><span>Ã¢ÂÂ¡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
-      (s.pending ? '<div class="vendor-stat"><span>Ã¢ÂÂ³ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
+      '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
+      (s.problem ? '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ  Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
+      (s.warn    ? '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ¡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
+      (s.pending ? '<div class="vendor-stat"><span>ÃÂ¢ÃÂÃÂ³ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
       '<div class="vendor-stat"><span>WOs</span><span class="vendor-stat-val" style="font-size:10px;color:#64748b">' + s.wos.join(', ') + '</span></div>' +
-      '<span class="vendor-note-label">Ã°ÂÂÂ Notes</span>' +
+      '<span class="vendor-note-label">ÃÂ°ÃÂÃÂÃÂ Notes</span>' +
       '<textarea class="vendor-note-ta" id="vnote_' + name.replace(/\W+/g,'_') + '" placeholder="Reliability notes, contact info, issues...">' + esc(saved) + '</textarea>' +
       '<button class="vendor-save-small" onclick="saveVendorNote(\'' + name.replace(/\W+/g,'_') + '\',\'' + noteKey + '\')">Save Note</button>' +
     '</div>';
@@ -692,10 +699,10 @@ function saveVendorNote(slug, key) {
   var val = (document.getElementById('vnote_' + slug)||{}).value || '';
   localStorage.setItem(key, val);
   var btn = event.target;
-  btn.textContent = 'Ã¢ÂÂ Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
+  btn.textContent = 'ÃÂ¢ÃÂÃÂ Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ Inject Notes + View buttons + notes panels into every row Ã¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ Inject Notes + View buttons + notes panels into every row ÃÂ¢ÃÂÃÂ
 function injectNotesUI() {
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
     var woEl = row.querySelector('[data-wo]');
@@ -781,18 +788,27 @@ window.addEventListener('DOMContentLoaded', function() {
 </div>
 </div><!-- end tab-board -->
 
-<!-- Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ TEMPLATES TAB Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ -->
+<!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ TEMPLATES TAB ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
 <div id="tab-templates" class="tab-content">
-  <h1 style="margin-bottom:4px">Ã°ÂÂÂ Copy-Paste Templates</h1>
+  <h1 style="margin-bottom:4px">ÃÂ°ÃÂÃÂÃÂ Copy-Paste Templates</h1>
   <div class="meta" style="margin-bottom:14px">Saved in your browser. Edit, add, and copy notes instantly.</div>
-  <div id="tpl-list"></div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px;margin-bottom:14px">
+  <div style="font-size:12px;font-weight:bold;color:#93c5fd;margin-bottom:6px">⚙️ GitHub Settings</div>
+  <div style="font-size:11px;color:#64748b;margin-bottom:8px">Your GitHub PAT is stored only in this browser. Never shared or committed. Required for auto-push when clicking status buttons.</div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <input id="pat-input" type="password" placeholder="Paste your GitHub PAT here..." style="flex:1;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 10px;font-size:12px;color:#e2e8f0;outline:none" oninput="this.style.borderColor='#3b82f6'">
+    <button onclick="savePAT()" style="font-size:11px;padding:6px 12px;background:#1d4ed8;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:bold">Save</button>
+    <span id="pat-status" style="font-size:10px;color:#64748b"></span>
+  </div>
+</div>
+<div id="tpl-list"></div>
   <button class="add-tpl-btn" onclick="addTemplate()">+ Add Template</button>
 </div>
 
-<!-- Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ VENDORS TAB Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ -->
+<!-- ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ VENDORS TAB ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ -->
 <div id="tab-vendors" class="tab-content">
-  <h1 style="margin-bottom:4px">Ã°ÂÂÂ¢ Vendor Tracker</h1>
-  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor Ã¢ÂÂ saved in your browser.</div>
+  <h1 style="margin-bottom:4px">ÃÂ°ÃÂÃÂÃÂ¢ Vendor Tracker</h1>
+  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor ÃÂ¢ÃÂÃÂ saved in your browser.</div>
   <div id="vendor-grid" class="vendor-grid"></div>
 </div>
 
