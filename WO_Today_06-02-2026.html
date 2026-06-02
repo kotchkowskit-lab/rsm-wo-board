@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FL All Dispatch — June 2, 2026</title>
+<title>FL All Dispatch â June 2, 2026</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:13px;background:#0f1117;color:#e2e8f0;padding:16px}
@@ -115,6 +115,10 @@ tr.done td{opacity:.25}
 /* Row highlight from search */
 .row-highlight td{background:#0c2333!important;border-left:3px solid #3b82f6!important}
 
+.status-filter-btn{font-size:10px;font-weight:bold;padding:4px 10px;border:1px solid #334155;background:#0f172a;color:#64748b;border-radius:20px;cursor:pointer;white-space:nowrap}
+.status-filter-btn:hover{color:#e2e8f0;border-color:#475569}
+.status-filter-btn.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+
 /* Tabs */
 .tab-nav{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid #334155;padding-bottom:0}
 .tab-btn{font-size:12px;font-weight:bold;padding:7px 16px;border:1px solid #334155;border-bottom:none;background:#0f172a;color:#64748b;cursor:pointer;border-radius:4px 4px 0 0;position:relative;top:1px}
@@ -156,9 +160,9 @@ tr.done td{opacity:.25}
 </head>
 <body>
 <div class="tab-nav">
-  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">📋 Board</button>
-  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">📝 Templates</button>
-  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">🏢 Vendors</button>
+  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">ð Board</button>
+  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">ð Templates</button>
+  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">ð¢ Vendors</button>
 </div>
 
 <div id="tab-board" class="tab-content active">
@@ -170,6 +174,16 @@ tr.done td{opacity:.25}
   <button id="update-board-btn" onclick="copyUpdatePrompt()" style="font-size:12px;font-weight:bold;padding:9px 16px;background:#1d4ed8;color:#fff;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(29,78,216,.4)">
     &#128260; Update Board
   </button>
+</div>
+<div id="status-filter-bar" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding:8px 12px;background:#1e293b;border:1px solid #334155;border-radius:6px">
+  <span style="font-size:10px;color:#64748b;font-weight:bold;text-transform:uppercase;align-self:center;margin-right:4px">Filter:</span>
+  <button class="status-filter-btn active" data-status="all" onclick="filterByStatus('all',this)">All</button>
+  <button class="status-filter-btn" data-status="new" onclick="filterByStatus('new',this)">⚡ New</button>
+  <button class="status-filter-btn" data-status="confirmed" onclick="filterByStatus('confirmed',this)">✓ Confirmed</button>
+  <button class="status-filter-btn" data-status="scheduling" onclick="filterByStatus('scheduling',this)">📅 Needs Scheduling</button>
+  <button class="status-filter-btn" data-status="materials" onclick="filterByStatus('materials',this)">📦 Hold Materials</button>
+  <button class="status-filter-btn" data-status="action" onclick="filterByStatus('action',this)">⚠ Needs Action</button>
+  <button class="status-filter-btn" data-status="quote" onclick="filterByStatus('quote',this)">💰 Quote</button>
 </div>
 <div class="meta">Blue bar = FIT Followup Comment &bull; Email = most recent vendor reply &bull; Green border = confirmed on-site &bull; Red = action needed &bull; Yellow = new update today</div>
 
@@ -246,12 +260,12 @@ function DD(btn,ev){if(ev){ev.stopPropagation();ev.preventDefault();}var m=btn.c
 var TT={eta:{s:function(w,l){return 'WO #'+w+' Follow-Up | '+l;},b:function(w,l){return 'Hi Team,\n\nFollowing up on WO #'+w+' at '+l+'.\n\nCould you please provide a schedule date / tech ETA?\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},schedule:{s:function(w,l){return 'Schedule Needed - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nPlease confirm a date and time for WO #'+w+' at '+l+'.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},confirm:{s:function(w,l){return 'Completion Confirmation - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nCould you please confirm completion of WO #'+w+' at '+l+'?\n\nPlease send photos and close-out notes.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},return_:{s:function(w,l){return 'Return Trip - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nWO #'+w+' at '+l+' requires a return visit. Please advise on availability.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}}};
 function T(type,wo,loc,vendor){var t=TT[type]||TT.eta;var w=window.open('https://outlook.cloud.microsoft/mail/deeplink/compose?subject='+encodeURIComponent(t.s(wo,loc))+'&body='+encodeURIComponent(t.b(wo,loc)),'outlook_drafts');if(w)setTimeout(function(){try{w.blur();window.focus();}catch(e){}},200);var sb=document.getElementById('sb'+wo);if(sb){sb.querySelector('.split-main').textContent='Drafted';sb.classList.add('drafted');}document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});}
 
-// ── Notes ─────────────────────────────────────────────────
+// ââ Notes âââââââââââââââââââââââââââââââââââââââââââââââââ
 function toggleNotes(wo) {
   var panel = document.getElementById('notes-' + wo);
   var btn = document.getElementById('nb' + wo);
   var isOpen = panel.classList.toggle('open');
-  btn.textContent = isOpen ? '✕ Close' : '📝 Notes';
+  btn.textContent = isOpen ? 'â Close' : 'ð Notes';
   if (isOpen) loadNote(wo);
 }
 function loadNote(wo) {
@@ -274,13 +288,13 @@ function saveNote(wo) {
   };
   localStorage.setItem('wonote_' + wo, JSON.stringify(data));
   var btn = document.getElementById('note-save-' + wo);
-  btn.textContent = '✓ Saved!'; btn.classList.add('saved');
+  btn.textContent = 'â Saved!'; btn.classList.add('saved');
   setTimeout(function(){ btn.textContent = 'Save Notes'; btn.classList.remove('saved'); }, 2000);
   var nb = document.getElementById('nb' + wo);
   if (nb && data.note) nb.classList.add('has-note');
 }
 
-// ── History Queue ─────────────────────────────────────────
+// ââ History Queue âââââââââââââââââââââââââââââââââââââââââ
 var historyItems = JSON.parse(localStorage.getItem('wo_history') || '[]');
 
 function D(chk) {
@@ -336,6 +350,7 @@ function renderHistory() {
   var count = document.getElementById('history-count');
   if (!list) return;
   count.textContent = historyItems.length;
+  var count2 = document.getElementById('history-count2'); if(count2) count2.textContent = historyItems.length;
   if (historyItems.length === 0) { list.innerHTML = '<div style="padding:12px;font-size:11px;color:#475569;text-align:center">No completed WOs yet today</div>'; return; }
   list.innerHTML = historyItems.map(function(item) {
     return '<div class="history-item"><div class="wo-tag">' + item.wo + '</div><div class="hist-info"><div style="color:#64748b;font-size:11px">' + (item.loc||'').split('\n')[0] + '</div><div style="color:#475569;font-size:10px;margin-top:2px">Completed ' + (item.time||'') + '</div></div><button class="history-undo" onclick="undoHistory(\'' + item.wo + '\')">&#8617; Undo</button></div>';
@@ -346,10 +361,10 @@ function toggleHistory() {
   var list = document.getElementById('history-list');
   var chev = document.getElementById('history-chevron');
   list.classList.toggle('open');
-  chev.textContent = list.classList.contains('open') ? '▲' : '▼';
+  chev.textContent = list.classList.contains('open') ? 'â²' : 'â¼';
 }
 
-// ── Search ────────────────────────────────────────────────
+// ââ Search ââââââââââââââââââââââââââââââââââââââââââââââââ
 function searchWO(val) {
   val = val.trim();
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
@@ -387,7 +402,7 @@ function searchWO(val) {
   });
 }
 
-// ── WO Detail Modal ───────────────────────────────────────
+// ââ WO Detail Modal âââââââââââââââââââââââââââââââââââââââ
 var WO_DATA = {};
 document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
   var wo = row.querySelector('[data-wo]');
@@ -494,7 +509,7 @@ function copyModalNote(btn, type) {
   if (preview) { preview.textContent = note; preview.style.display = 'block'; }
   if (navigator.clipboard) navigator.clipboard.writeText(note);
   else { var ta = document.createElement('textarea'); ta.value=note; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
-  var orig = btn.textContent; btn.textContent = '✓ Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
+  var orig = btn.textContent; btn.textContent = 'â Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
   setTimeout(function(){ btn.textContent=orig; btn.style.color=''; btn.style.borderColor=''; }, 2000);
 }
 
@@ -524,18 +539,18 @@ function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'
 // Close modal on overlay click
 document.getElementById('wo-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
 
-// ── Update Board Button ───────────────────────────────────
+// ââ Update Board Button âââââââââââââââââââââââââââââââââââ
 function copyUpdatePrompt() {
   var prompt = 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features (tabs, notes, dropdowns, templates, vendor stats), then upload to rsm-wo-board.tiiny.site via the tiiny.host Update flow.';
   if (navigator.clipboard) navigator.clipboard.writeText(prompt);
   else { var ta=document.createElement('textarea');ta.value=prompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
   var btn = document.getElementById('update-board-btn');
-  btn.textContent = '✓ Prompt Copied — Paste in Claude';
+  btn.textContent = 'â Prompt Copied â Paste in Claude';
   btn.style.background = '#16a34a';
   setTimeout(function(){ btn.innerHTML = '&#128260; Update Board'; btn.style.background = '#1d4ed8'; }, 3000);
 }
 
-// ── Tab Navigation ────────────────────────────────────────
+// ââ Tab Navigation ââââââââââââââââââââââââââââââââââââââââ
 function showTab(name) {
   document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
   document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -543,9 +558,10 @@ function showTab(name) {
   document.getElementById('btn-' + name).classList.add('active');
   if (name === 'templates') renderTemplates();
   if (name === 'vendors') renderVendors();
+  if (name === 'history') { renderHistory(); var c2=document.getElementById('history-count2'); if(c2) c2.textContent=historyItems.length; }
 }
 
-// ── Templates ─────────────────────────────────────────────
+// ââ Templates âââââââââââââââââââââââââââââââââââââââââââââ
 var DEFAULT_TEMPLATES = [
   { id: 'tpl_sched_today', title: 'Scheduled Today', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.' },
   { id: 'tpl_sched_week',  title: 'Scheduled This Week', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.' },
@@ -588,7 +604,7 @@ function saveSingleTemplate(id) {
   tpl.body  = (document.getElementById('tbody_'  + id)||{}).value || tpl.body;
   saveTemplates(tpls);
   var btn = document.getElementById('tsave_' + id);
-  if (btn) { btn.textContent = '✓ Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
+  if (btn) { btn.textContent = 'â Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
 }
 
 function copyTemplate(id) {
@@ -602,7 +618,7 @@ function copyTemplate(id) {
   if (navigator.clipboard) navigator.clipboard.writeText(text);
   else { var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
   var btn = document.getElementById('tcopy_' + id);
-  if (btn) { btn.textContent = '✓ Copied!'; setTimeout(function(){ btn.textContent = '📋 Copy'; }, 1500); }
+  if (btn) { btn.textContent = 'â Copied!'; setTimeout(function(){ btn.textContent = 'ð Copy'; }, 1500); }
 }
 
 function renderTemplates() {
@@ -614,17 +630,17 @@ function renderTemplates() {
     return '<div class="tpl-card" id="tplcard_' + id + '">' +
       '<input class="tpl-title-input" id="ttitle_' + id + '" value="' + esc(t.title) + '" placeholder="Template name...">' +
       '<textarea class="tpl-body-input" id="tbody_' + id + '" placeholder="Template text... use {greeting} for auto Good morning/afternoon/evening">' + esc(t.body) + '</textarea>' +
-      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> → auto Good morning/afternoon/evening</div>' +
+      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> â auto Good morning/afternoon/evening</div>' +
       '<div class="tpl-actions">' +
-        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">📋 Copy</button>' +
+        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">ð Copy</button>' +
         '<button class="tpl-save-btn" id="tsave_' + id + '" onclick="saveSingleTemplate(\'' + id + '\')">Save</button>' +
-        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">✕ Delete</button>' +
+        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">â Delete</button>' +
       '</div>' +
     '</div>';
   }).join('');
 }
 
-// ── Vendor Stats ──────────────────────────────────────────
+// ââ Vendor Stats ââââââââââââââââââââââââââââââââââââââââââ
 function renderVendors() {
   // Build stats from WO_DATA (populated at DOMContentLoaded)
   var stats = {};
@@ -660,12 +676,12 @@ function renderVendors() {
     return '<div class="vendor-card">' +
       '<div class="vendor-name">' + esc(name) + '</div>' +
       '<div class="vendor-stat"><span>Total WOs Today</span><span class="vendor-stat-val">' + total + '</span></div>' +
-      '<div class="vendor-stat"><span>✓ Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
-      (s.problem ? '<div class="vendor-stat"><span>⚠ Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
-      (s.warn    ? '<div class="vendor-stat"><span>⚡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
-      (s.pending ? '<div class="vendor-stat"><span>⏳ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
+      '<div class="vendor-stat"><span>â Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
+      (s.problem ? '<div class="vendor-stat"><span>â  Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
+      (s.warn    ? '<div class="vendor-stat"><span>â¡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
+      (s.pending ? '<div class="vendor-stat"><span>â³ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
       '<div class="vendor-stat"><span>WOs</span><span class="vendor-stat-val" style="font-size:10px;color:#64748b">' + s.wos.join(', ') + '</span></div>' +
-      '<span class="vendor-note-label">📝 Notes</span>' +
+      '<span class="vendor-note-label">ð Notes</span>' +
       '<textarea class="vendor-note-ta" id="vnote_' + name.replace(/\W+/g,'_') + '" placeholder="Reliability notes, contact info, issues...">' + esc(saved) + '</textarea>' +
       '<button class="vendor-save-small" onclick="saveVendorNote(\'' + name.replace(/\W+/g,'_') + '\',\'' + noteKey + '\')">Save Note</button>' +
     '</div>';
@@ -676,10 +692,10 @@ function saveVendorNote(slug, key) {
   var val = (document.getElementById('vnote_' + slug)||{}).value || '';
   localStorage.setItem(key, val);
   var btn = event.target;
-  btn.textContent = '✓ Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
+  btn.textContent = 'â Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
 }
 
-// ── Inject Notes + View buttons + notes panels into every row ─
+// ââ Inject Notes + View buttons + notes panels into every row â
 function injectNotesUI() {
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
     var woEl = row.querySelector('[data-wo]');
@@ -765,18 +781,18 @@ window.addEventListener('DOMContentLoaded', function() {
 </div>
 </div><!-- end tab-board -->
 
-<!-- ═══════════════════ TEMPLATES TAB ═══════════════════ -->
+<!-- âââââââââââââââââââ TEMPLATES TAB âââââââââââââââââââ -->
 <div id="tab-templates" class="tab-content">
-  <h1 style="margin-bottom:4px">📝 Copy-Paste Templates</h1>
+  <h1 style="margin-bottom:4px">ð Copy-Paste Templates</h1>
   <div class="meta" style="margin-bottom:14px">Saved in your browser. Edit, add, and copy notes instantly.</div>
   <div id="tpl-list"></div>
   <button class="add-tpl-btn" onclick="addTemplate()">+ Add Template</button>
 </div>
 
-<!-- ═══════════════════ VENDORS TAB ═══════════════════ -->
+<!-- âââââââââââââââââââ VENDORS TAB âââââââââââââââââââ -->
 <div id="tab-vendors" class="tab-content">
-  <h1 style="margin-bottom:4px">🏢 Vendor Tracker</h1>
-  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor — saved in your browser.</div>
+  <h1 style="margin-bottom:4px">ð¢ Vendor Tracker</h1>
+  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor â saved in your browser.</div>
   <div id="vendor-grid" class="vendor-grid"></div>
 </div>
 
