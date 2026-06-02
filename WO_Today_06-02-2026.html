@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FL All Dispatch — June 2, 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:13px;background:#0f1117;color:#e2e8f0;padding:16px}
+h1{font-size:17px;font-weight:bold;color:#93c5fd;margin-bottom:2px}
+.meta{font-size:11px;color:#64748b;margin-bottom:14px}
+.section-hdr{background:#1e293b;color:#93c5fd;padding:6px 12px;font-size:12px;font-weight:bold;border-radius:4px 4px 0 0;margin-top:16px;display:flex;align-items:center;justify-content:space-between;border:1px solid #334155;border-bottom:none}
+.new-hdr{background:#1c1507;color:#fbbf24;border-color:#78350f}
+table{width:100%;border-collapse:collapse;background:#1e293b;border:1px solid #334155;border-top:none}
+th{background:#0f172a;color:#64748b;font-size:10px;text-transform:uppercase;padding:5px 8px;text-align:left;border-bottom:1px solid #334155}
+td{padding:7px 8px;border-bottom:1px solid #1a2540;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.row-a td{background:#1e293b}
+tr.row-b td{background:#162032}
+tr:hover td{background:#1d3048!important}
+tr.done td{opacity:.25}
+.chk-cell{width:26px;text-align:center;vertical-align:middle}
+.chk{width:14px;height:14px;cursor:pointer;accent-color:#22c55e}
+.wo{font-weight:bold;color:#93c5fd;font-size:12px;white-space:nowrap}
+.loc{font-weight:600;color:#e2e8f0;font-size:12px;line-height:1.4}
+.sub{font-size:10px;color:#64748b}
+.vnd{font-size:11px;color:#94a3b8}
+.fit{background:#0f172a;border-left:3px solid #3b82f6;padding:4px 7px;border-radius:0 3px 3px 0;font-size:11px;color:#cbd5e1;font-style:italic;margin-bottom:4px}
+.email{font-size:11px;color:#cbd5e1;line-height:1.5}
+.tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 7px;border-radius:8px;white-space:nowrap;margin-right:3px;margin-bottom:3px}
+.t-ok{background:#052e16;color:#4ade80;border:1px solid #14532d}
+.t-thu{background:#0c2333;color:#67e8f9;border:1px solid #164e63}
+.t-pend{background:#1c1a07;color:#fbbf24;border:1px solid #78350f}
+.t-prob{background:#450a0a;color:#fca5a5;border:1px solid #7f1d1d}
+.t-urg{background:#4c0519;color:#fda4af;border:1px solid #9f1239}
+.t-mat{background:#1e1b4b;color:#a5b4fc;border:1px solid #3730a3}
+.t-warn{background:#2c1a00;color:#fb923c;border:1px solid #9a3412}
+.green-l td{border-left:3px solid #22c55e!important}
+.red-l td{border-left:3px solid #dc2626!important}
+.orange-l td{border-left:3px solid #f97316!important}
+.yellow-l td{border-left:3px solid #fbbf24!important}
+.copy-btn{font-size:10px;padding:2px 7px;border:1px solid #059669;background:#052e16;color:#4ade80;border-radius:4px;cursor:pointer;margin-top:4px;display:inline-block}
+.copy-btn:hover{background:#064e3b}
+.copy-btn.copied{background:#16a34a;color:#fff}
+.split-btn{display:inline-flex;border-radius:4px;position:relative;margin-top:3px}
+.split-main{font-size:10px;font-weight:bold;padding:3px 7px;border:1px solid #3b82f6;background:#172554;color:#93c5fd;cursor:pointer;border-right:none;border-radius:4px 0 0 4px;white-space:nowrap}
+.split-main:hover,.split-arrow:hover{background:#1e3a8a}
+.split-arrow{font-size:9px;padding:3px 5px;border:1px solid #3b82f6;border-left:1px solid #1d4ed8;background:#172554;color:#93c5fd;cursor:pointer;border-radius:0 4px 4px 0}
+.split-btn.drafted .split-main,.split-btn.drafted .split-arrow{border-color:#16a34a;background:#052e16;color:#4ade80}
+.drop-menu{display:none;position:absolute;top:100%;right:0;z-index:999;background:#1e293b;border:1px solid #334155;border-radius:4px;box-shadow:0 4px 16px rgba(0,0,0,.6);min-width:190px;margin-top:2px}
+.drop-menu.open{display:block}
+.drop-hdr{font-size:10px;font-weight:bold;color:#64748b;padding:4px 8px 3px;text-transform:uppercase;border-bottom:1px solid #334155}
+.drop-item{display:block;width:100%;text-align:left;padding:5px 8px;font-size:11px;color:#cbd5e1;background:none;border:none;cursor:pointer}
+.drop-item:hover{background:#273449}
+.row-btns{display:flex;flex-direction:column;gap:4px}
+
+/* Search bar */
+.search-wrap{display:flex;gap:8px;align-items:center;margin-bottom:12px;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:8px 12px}
+.search-input{flex:1;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 10px;font-size:13px;color:#e2e8f0;outline:none}
+.search-input:focus{border-color:#3b82f6}
+.search-input::placeholder{color:#475569}
+.search-clear{font-size:11px;padding:4px 8px;border:1px solid #334155;background:#0f172a;color:#64748b;border-radius:4px;cursor:pointer}
+.search-clear:hover{color:#94a3b8}
+
+/* Notes panel (inline row) */
+.notes-row td{padding:0!important;background:#0c1625!important;border-bottom:1px solid #334155}
+.notes-panel{padding:10px 14px;display:none}
+.notes-panel.open{display:block}
+.notes-panel-inner{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.notes-label{font-size:10px;color:#64748b;font-weight:bold;text-transform:uppercase;display:block;margin-bottom:3px}
+.notes-textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 8px;font-size:11px;color:#e2e8f0;resize:vertical;min-height:60px;font-family:Arial,sans-serif;outline:none}
+.notes-textarea:focus{border-color:#3b82f6}
+.notes-date{width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:5px 8px;font-size:11px;color:#e2e8f0;outline:none}
+.notes-date:focus{border-color:#3b82f6}
+.notes-save-btn{background:#1d4ed8;color:#fff;border:none;border-radius:4px;padding:5px 12px;font-size:11px;font-weight:bold;cursor:pointer;margin-top:6px}
+.notes-save-btn:hover{background:#2563eb}
+.notes-save-btn.saved{background:#16a34a}
+.notes-indicator{width:7px;height:7px;border-radius:50%;background:#3b82f6;display:inline-block;margin-left:3px;vertical-align:middle}
+
+/* Note button */
+.note-btn{font-size:10px;padding:2px 6px;border:1px solid #475569;background:#1e293b;color:#94a3b8;border-radius:3px;cursor:pointer;white-space:nowrap}
+.note-btn:hover{background:#273449;color:#e2e8f0}
+.note-btn.has-note{border-color:#3b82f6;color:#93c5fd;background:#172554}
+
+/* View modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:#1e293b;border:1px solid #334155;border-radius:8px;width:680px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.modal-header{background:#0f172a;padding:12px 16px;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #334155}
+.modal-title{font-size:14px;font-weight:bold;color:#93c5fd}
+.modal-close{background:none;border:none;color:#94a3b8;font-size:18px;cursor:pointer;padding:0 4px}
+.modal-close:hover{color:#f87171}
+.modal-body{flex:1;overflow-y:auto;padding:14px 16px}
+.modal-section{margin-bottom:14px}
+.modal-section-label{font-size:10px;font-weight:bold;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.modal-fit{background:#0f172a;border-left:3px solid #3b82f6;padding:6px 10px;border-radius:0 4px 4px 0;font-size:12px;color:#cbd5e1;font-style:italic}
+.modal-email{font-size:12px;color:#cbd5e1;line-height:1.5;background:#0f172a;padding:6px 10px;border-radius:4px;border:1px solid #334155}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.client-note-btns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.cn-prompt{font-size:11px;padding:4px 9px;border-radius:4px;cursor:pointer;border:1px solid #334155;background:#0f172a;color:#94a3b8}
+.cn-prompt:hover{background:#1e293b;color:#e2e8f0;border-color:#3b82f6}
+
+/* History / Completed section */
+.history-wrap{margin-top:20px}
+.history-hdr{background:#0f172a;color:#475569;padding:6px 12px;font-size:11px;font-weight:bold;border-radius:4px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border:1px solid #1e293b}
+.history-hdr:hover{color:#64748b}
+.history-list{border:1px solid #1e293b;border-top:none;border-radius:0 0 4px 4px;display:none}
+.history-list.open{display:block}
+.history-item{padding:8px 12px;border-bottom:1px solid #1e293b;display:flex;align-items:center;gap:10px;background:#0c1625}
+.history-item:last-child{border-bottom:none}
+.history-item .wo-tag{font-weight:bold;color:#475569;font-size:12px;white-space:nowrap;width:80px}
+.history-item .hist-info{flex:1;font-size:11px;color:#475569;line-height:1.4}
+.history-undo{font-size:10px;padding:2px 7px;border:1px solid #334155;background:#1e293b;color:#64748b;border-radius:3px;cursor:pointer}
+.history-undo:hover{color:#93c5fd;border-color:#3b82f6}
+
+/* Row highlight from search */
+.row-highlight td{background:#0c2333!important;border-left:3px solid #3b82f6!important}
+
+/* Tabs */
+.tab-nav{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid #334155;padding-bottom:0}
+.tab-btn{font-size:12px;font-weight:bold;padding:7px 16px;border:1px solid #334155;border-bottom:none;background:#0f172a;color:#64748b;cursor:pointer;border-radius:4px 4px 0 0;position:relative;top:1px}
+.tab-btn:hover{color:#94a3b8;background:#1e293b}
+.tab-btn.active{background:#1e293b;color:#93c5fd;border-color:#334155;border-bottom-color:#1e293b}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Templates page */
+.tpl-card{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px;margin-bottom:10px}
+.tpl-title-input{width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:5px 8px;font-size:12px;font-weight:bold;color:#93c5fd;margin-bottom:6px;outline:none}
+.tpl-title-input:focus{border-color:#3b82f6}
+.tpl-body-input{width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 8px;font-size:11px;color:#e2e8f0;resize:vertical;min-height:70px;font-family:Arial,sans-serif;outline:none}
+.tpl-body-input:focus{border-color:#3b82f6}
+.tpl-actions{display:flex;gap:6px;margin-top:8px}
+.tpl-copy-btn{font-size:11px;padding:4px 10px;border:1px solid #059669;background:#052e16;color:#4ade80;border-radius:4px;cursor:pointer}
+.tpl-copy-btn:hover{background:#064e3b}
+.tpl-save-btn{font-size:11px;padding:4px 10px;border:1px solid #1d4ed8;background:#172554;color:#93c5fd;border-radius:4px;cursor:pointer}
+.tpl-save-btn:hover{background:#1e3a8a}
+.tpl-del-btn{font-size:11px;padding:4px 10px;border:1px solid #450a0a;background:#1f0808;color:#f87171;border-radius:4px;cursor:pointer;margin-left:auto}
+.tpl-del-btn:hover{background:#450a0a}
+.add-tpl-btn{font-size:12px;font-weight:bold;padding:7px 16px;border:1px dashed #334155;background:#0f172a;color:#64748b;border-radius:6px;cursor:pointer;width:100%;text-align:center;margin-top:4px}
+.add-tpl-btn:hover{color:#93c5fd;border-color:#3b82f6}
+
+/* Vendor stats */
+.vendor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:8px}
+.vendor-card{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:12px}
+.vendor-name{font-size:13px;font-weight:bold;color:#e2e8f0;margin-bottom:6px}
+.vendor-stat{display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;padding:3px 0;border-bottom:1px solid #1a2540}
+.vendor-stat:last-child{border-bottom:none}
+.vendor-stat-val{font-weight:bold;color:#cbd5e1}
+.vendor-stat-val.good{color:#4ade80}
+.vendor-stat-val.warn{color:#fbbf24}
+.vendor-stat-val.bad{color:#f87171}
+.vendor-note-label{font-size:10px;color:#64748b;font-weight:bold;text-transform:uppercase;margin-top:8px;margin-bottom:3px;display:block}
+.vendor-note-ta{width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:5px 7px;font-size:11px;color:#e2e8f0;resize:vertical;min-height:48px;font-family:Arial;outline:none}
+.vendor-save-small{font-size:10px;padding:3px 8px;border:1px solid #1d4ed8;background:#172554;color:#93c5fd;border-radius:3px;cursor:pointer;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="tab-nav">
+  <button class="tab-btn active" id="btn-board" onclick="showTab('board')">📋 Board</button>
+  <button class="tab-btn" id="btn-templates" onclick="showTab('templates')">📝 Templates</button>
+  <button class="tab-btn" id="btn-vendors" onclick="showTab('vendors')">🏢 Vendors</button>
+</div>
+
+<div id="tab-board" class="tab-content active">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+  <div>
+    <h1 style="margin-bottom:0">&#128203; FL All Dispatch &mdash; RSM Board</h1>
+    <div class="meta" style="margin-bottom:0">Blue bar = FIT note &bull; Green border = confirmed on-site &bull; Red = action needed &bull; Yellow = new update</div>
+  </div>
+  <button id="update-board-btn" onclick="copyUpdatePrompt()" style="font-size:12px;font-weight:bold;padding:9px 16px;background:#1d4ed8;color:#fff;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(29,78,216,.4)">
+    &#128260; Update Board
+  </button>
+</div>
+<div class="meta">Blue bar = FIT Followup Comment &bull; Email = most recent vendor reply &bull; Green border = confirmed on-site &bull; Red = action needed &bull; Yellow = new update today</div>
+
+
+<!-- Search Bar -->
+<div class="search-wrap">
+  <span style="font-size:11px;color:#64748b;font-weight:bold;white-space:nowrap">&#128269; Quick Find:</span>
+  <input id="search-input" class="search-input" placeholder="Type a WO # to find it..." oninput="searchWO(this.value)" onkeydown="if(event.key==='Escape'){this.value='';searchWO('')}">
+  <button class="search-clear" onclick="document.getElementById('search-input').value='';searchWO('')">Clear</button>
+</div>
+
+<!-- WO Detail Modal -->
+<div class="modal-overlay" id="wo-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Work Order Details</div>
+      <button class="modal-close" onclick="closeModal()">&#215;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="section-hdr new-hdr"><span>&#9889; New Today &#8212; Just Dispatched</span><span style="font-size:11px;font-weight:normal;opacity:.8">4 WOs</span></div>
+<table><thead><tr><th class="chk-cell">&#10003;</th><th style="width:75px">WO #</th><th style="width:170px">Location</th><th style="width:130px">Vendor</th><th>FIT Note + Email Update</th><th style="width:150px">Action</th></tr></thead><tbody>
+<tr class="yellow-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847538" onchange="D(this)"></td><td><div class="wo">1847538</div></td><td class="loc">Samsonite #383<br><span class="sub">Mebane, NC &mdash; Plumbing</span></td><td class="vnd">Next Gen Facility<br><span class="sub">Three Day 72hr</span></td><td><div class="fit">Sent to Next Gen</div><div class="email"><span class="tag t-thu">&#10004; Thu 6/4</span> Helen Pierce / Next Gen (6/2 1:49 PM): &ldquo;Accepted for Thursday 6/4. We will keep you posted.&rdquo;</div><button class="copy-btn" id="cn1847538" onclick="C('1847538')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847538"><button class="split-main" onclick="T('schedule','1847538','Samsonite Mebane #383','Next Gen Facility')">&#128197; Schedule</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('schedule','1847538','Samsonite Mebane #383','Next Gen Facility')">&#128197; Schedule Install</button><button class="drop-item" onclick="T('confirm','1847538','Samsonite Mebane #383','Next Gen Facility')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="yellow-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847531" onchange="D(this)"></td><td><div class="wo">1847531</div></td><td class="loc">Sherwin Williams #4343<br><span class="sub">Kansas City, MO &mdash; Electrical</span></td><td class="vnd">PCS Solutions<br><span class="sub">Standard 48hr</span></td><td><div class="fit">Sent to PCS</div><div class="email"><span class="tag t-thu">&#10004; Thu 6/4</span> PCS Solutions (6/2 1:18 PM): &ldquo;Accept for Thursday.&rdquo;</div><button class="copy-btn" id="cn1847531" onclick="C('1847531')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847531"><button class="split-main" onclick="T('schedule','1847531','Sherwin Williams KC #4343','PCS Solutions')">&#128197; Schedule</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('schedule','1847531','Sherwin Williams KC #4343','PCS Solutions')">&#128197; Schedule Install</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847587" onchange="D(this)"></td><td><div class="wo">1847587</div></td><td class="loc">Dicks Sporting Goods #01326<br><span class="sub">Lake City, FL &mdash; Plumbing</span></td><td class="vnd">Gulf Stream Commercial Trades<br><span class="sub">Next Day 24hr</span></td><td><div class="fit">Sent to Gulf Stream</div><div class="email"><span class="tag t-pend">Dispatched</span> New today &mdash; awaiting Gulf Stream acceptance.</div><button class="copy-btn" id="cn1847587" onclick="C('1847587')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847587"><button class="split-main" onclick="T('eta','1847587','Dicks Lake City #01326','Gulf Stream')">&#128230; ETA</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1847587','Dicks Lake City #01326','Gulf Stream')">&#128230; ETA Request</button></div></div></td></tr>
+<tr class="red-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847597" onchange="D(this)"></td><td><div class="wo" style="color:#f87171">1847597</div></td><td class="loc">Lululemon #10213<br><span class="sub">Garden City, NY &mdash; Plumbing</span></td><td class="vnd" style="color:#f87171">UNASSIGNED<br><span class="sub">Next Day 24hr</span></td><td><div class="fit">New &#8212; no vendor assigned</div><div class="email"><span class="tag t-prob">Needs Vendor</span> No tech dispatched. Needs assignment ASAP.</div><button class="copy-btn" id="cn1847597" onclick="C('1847597')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847597"><button class="split-main" onclick="T('eta','1847597','Lululemon Garden City #10213','TBD')">&#128230; Dispatch</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1847597','Lululemon Garden City #10213','TBD')">&#128230; ETA Request</button></div></div></td></tr>
+</tbody></table>
+
+<div class="section-hdr" style="margin-top:20px"><span>&#10004; Confirmed On-Site Today</span><span style="font-size:11px;font-weight:normal;opacity:.8">15 WOs</span></div>
+<table><thead><tr><th class="chk-cell">&#10003;</th><th style="width:85px">WO # / Time</th><th style="width:170px">Location</th><th style="width:130px">Vendor</th><th>FIT Note + Email Update</th><th style="width:150px">Action</th></tr></thead><tbody>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1827324" onchange="D(this)"></td><td><div class="wo">1827324</div><div style="font-size:10px;color:#fbbf24">11am&#8211;1pm CST</div></td><td class="loc">J.Crew Factory #1155<br><span class="sub">Middleton, WI &mdash; Doors</span></td><td class="vnd">Chicago Field Services</td><td><div class="fit">Scheduled 6/2 between 11-1 PM CST</div><div class="email"><span class="tag t-ok">&#10004; On-Site Now</span> Chicago Field confirmed window.</div><button class="copy-btn" id="cn1827324" onclick="C('1827324')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1827324"><button class="split-main" onclick="T('confirm','1827324','J.Crew Factory Middleton #1155','Chicago Field Services')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1827324','J.Crew Factory Middleton #1155','Chicago Field Services')">&#10003; Confirm Completion</button><button class="drop-item" onclick="T('return_','1827324','J.Crew Factory Middleton #1155','Chicago Field Services')">&#8635; Return Trip</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847103" onchange="D(this)"></td><td><div class="wo">1847103</div><div style="font-size:10px;color:#fbbf24">10am&#8211;2pm</div></td><td class="loc">J.Crew #1001<br><span class="sub">Charlotte, NC &mdash; Handyman</span></td><td class="vnd">True Solutions NC</td><td><div class="fit">Scheduled 6/2 between 10-2 PM</div><div class="email"><span class="tag t-ok">&#10004; On-Site Window</span> True Solutions (6/1): &ldquo;Received.&rdquo;</div><button class="copy-btn" id="cn1847103" onclick="C('1847103')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847103"><button class="split-main" onclick="T('confirm','1847103','J.Crew Charlotte #1001','True Solutions NC')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1847103','J.Crew Charlotte #1001','True Solutions NC')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="red-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847518" onchange="D(this)"></td><td><div class="wo" style="color:#f87171">1847518</div><div style="font-size:10px;color:#f87171">1pm &#9888;</div></td><td class="loc">Dicks Sporting Goods #00112<br><span class="sub">State College, PA &mdash; Plumbing</span></td><td class="vnd">CTC Maintenance<br><span class="sub">Emergency 4hr</span></td><td><div class="fit">Scheduled 6/2 1:00 PM</div><div class="email"><span class="tag t-prob">&#9888; Vendor Declined</span> Prime Facility (6/2): &ldquo;Unfortunately we cannot cover this for today but available tomorrow morning.&rdquo; All backups overflowing &#8212; needs new vendor NOW.</div><button class="copy-btn" id="cn1847518" onclick="C('1847518')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847518"><button class="split-main" onclick="T('eta','1847518','Dicks State College #00112','CTC Maintenance')">&#128230; Find Vendor</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1847518','Dicks State College #00112','CTC Maintenance')">&#128230; ETA Request</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1841800" onchange="D(this)"></td><td><div class="wo">1841800</div><div style="font-size:10px;color:#fbbf24">12&#8211;4pm</div></td><td class="loc">Rowan Mosaic #0045<br><span class="sub">Fairfax, VA &mdash; Plumbing</span></td><td class="vnd">Guardian Plumbing</td><td><div class="fit">Scheduled 6/2 between 12-4 PM</div><div class="email"><span class="tag t-ok">&#10004; Today 12&#8211;4pm</span> Guardian confirmed. Rowan Open Order also confirms.</div><button class="copy-btn" id="cn1841800" onclick="C('1841800')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1841800"><button class="split-main" onclick="T('confirm','1841800','Rowan Mosaic Fairfax #0045','Guardian Plumbing')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1841800','Rowan Mosaic Fairfax #0045','Guardian Plumbing')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1846852" onchange="D(this)"></td><td><div class="wo">1846852</div><div style="font-size:10px;color:#fbbf24">2:00 PM</div></td><td class="loc">Krispy Kreme #365<br><span class="sub">Washington, PA &mdash; Handyman</span></td><td class="vnd">Experthands</td><td><div class="fit">Scheduled 6/2 2:00 PM</div><div class="email"><span class="tag t-ok">&#10004; Today 2pm</span> CS-Hudson (5/31): &ldquo;Accepted for Tuesday 2 pm.&rdquo;</div><button class="copy-btn" id="cn1846852" onclick="C('1846852')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1846852"><button class="split-main" onclick="T('confirm','1846852','Krispy Kreme Washington PA #365','Experthands')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1846852','Krispy Kreme Washington PA #365','Experthands')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1846911" onchange="D(this)"></td><td><div class="wo">1846911</div><div style="font-size:10px;color:#fbbf24">2:00 PM</div></td><td class="loc">Dicks Sporting Goods #00206<br><span class="sub">Greensboro, NC &mdash; Plumbing</span></td><td class="vnd">Next Gen Facility</td><td><div class="fit">Scheduled 6/2 2:00 PM</div><div class="email"><span class="tag t-ok">&#10004; Today 2pm</span> Mike Paladis (Next Gen, 6/1): &ldquo;I can do that today, between 2...&rdquo; Cost estimate for urinal repair submitted.</div><button class="copy-btn" id="cn1846911" onclick="C('1846911')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1846911"><button class="split-main" onclick="T('confirm','1846911','Dicks Greensboro #00206','Next Gen Facility')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1846911','Dicks Greensboro #00206','Next Gen Facility')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1846832" onchange="D(this)"></td><td><div class="wo">1846832</div><div style="font-size:10px;color:#fbbf24">12&#8211;2pm PST</div></td><td class="loc">J.Crew Factory #192<br><span class="sub">Roseville, CA &mdash; Plumbing</span></td><td class="vnd">Anderson's Plumbing</td><td><div class="fit">Scheduled 6/2 between 12-2 PM PST</div><div class="email"><span class="tag t-ok">&#10004; Today 12&#8211;2pm PST</span> Anderson's confirmed window.</div><button class="copy-btn" id="cn1846832" onclick="C('1846832')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1846832"><button class="split-main" onclick="T('confirm','1846832','J.Crew Factory Roseville #192','Andersons Plumbing')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1846832','J.Crew Factory Roseville #192','Andersons Plumbing')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847420" onchange="D(this)"></td><td><div class="wo">1847420</div><div style="font-size:10px;color:#fbbf24">12&#8211;2pm PST</div></td><td class="loc">J.Crew #1243 (Madewell)<br><span class="sub">Fresno, CA &mdash; Handyman</span></td><td class="vnd">Califix LLC</td><td><div class="fit">Scheduled 6/2 between 12-2 PM PST</div><div class="email"><span class="tag t-ok">&#10004; Today 12&#8211;2pm PST</span> Califix confirmed window.</div><button class="copy-btn" id="cn1847420" onclick="C('1847420')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847420"><button class="split-main" onclick="T('confirm','1847420','Madewell Fresno #1243','Califix LLC')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1847420','Madewell Fresno #1243','Califix LLC')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847427" onchange="D(this)"></td><td><div class="wo">1847427</div><div style="font-size:10px;color:#22c55e">1:30&#8211;3:30pm &#11088;</div></td><td class="loc">J.Crew Factory #056<br><span class="sub">Dawsonville, GA &mdash; Handyman</span></td><td class="vnd">Junkluggers</td><td><div class="fit">Scheduled 6/2 between 1:30-3:30 PM &#8212; NEW TODAY</div><div class="email"><span class="tag t-ok">&#10004; Today 1:30&#8211;3:30pm</span> Jose Nunez / Junkluggers (6/1): &ldquo;this is all set for tomorrow 6/2 at a 1:30-3:30PM arrival window.&rdquo;</div><button class="copy-btn" id="cn1847427" onclick="C('1847427')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847427"><button class="split-main" onclick="T('confirm','1847427','J.Crew Factory Dawsonville #056','Junkluggers')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1847427','J.Crew Factory Dawsonville #056','Junkluggers')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="orange-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847099" onchange="D(this)"></td><td><div class="wo" style="color:#fb923c">1847099</div><div style="font-size:10px;color:#fb923c">3pm &#9888;</div></td><td class="loc">Lands End #811 Kildeer<br><span class="sub">Kildeer, IL &mdash; Handyman</span></td><td class="vnd">Chicago Field Services</td><td><div class="fit">Scheduled 6/2 between 12-3 PM CST</div><div class="email"><span class="tag t-warn">&#9888; Said Wednesday</span> Chicago Field (6/1): &ldquo;We'll address it this week Wednesday.&rdquo; FIT shows today but vendor said Wednesday.</div><button class="copy-btn" id="cn1847099" onclick="C('1847099')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847099"><button class="split-main" onclick="T('schedule','1847099','Lands End Kildeer #811','Chicago Field Services')">&#128197; Clarify</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1847099','Lands End Kildeer #811','Chicago Field Services')">&#128230; ETA Request</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1846666" onchange="D(this)"></td><td><div class="wo">1846666</div><div style="font-size:10px;color:#fbbf24">3pm MST</div></td><td class="loc">J.Crew Factory #1144<br><span class="sub">Tucson, AZ &mdash; Plumbing</span></td><td class="vnd">Jayco LLC</td><td><div class="fit">Scheduled 6/2 between 12-3 PM MST</div><div class="email"><span class="tag t-ok">&#10004; Today 3pm MST</span> Jayco confirmed window.</div><button class="copy-btn" id="cn1846666" onclick="C('1846666')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1846666"><button class="split-main" onclick="T('confirm','1846666','J.Crew Factory Tucson #1144','Jayco LLC')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1846666','J.Crew Factory Tucson #1144','Jayco LLC')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847378" onchange="D(this)"></td><td><div class="wo">1847378</div><div style="font-size:10px;color:#fbbf24">1&#8211;3pm CST</div></td><td class="loc">Lands End #871 Minnetonka<br><span class="sub">Minnetonka, MN &mdash; Plumbing</span></td><td class="vnd">Chicago Field Services</td><td><div class="fit">Scheduled 6/2 between 1-3 PM CST</div><div class="email"><span class="tag t-ok">&#10004; Today 1&#8211;3pm CST</span> Chicago Field confirmed window.</div><button class="copy-btn" id="cn1847378" onclick="C('1847378')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847378"><button class="split-main" onclick="T('confirm','1847378','Lands End Minnetonka #871','Chicago Field Services')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1847378','Lands End Minnetonka #871','Chicago Field Services')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1846470" onchange="D(this)"></td><td><div class="wo">1846470</div><div style="font-size:10px;color:#fbbf24">by 4pm</div></td><td class="loc">TUMI #1192 Southpark<br><span class="sub">Charlotte, NC &mdash; Electrical</span></td><td class="vnd">Next Gen Facility</td><td><div class="fit">Scheduled 6/2 between 12-4 PM</div><div class="email"><span class="tag t-ok">&#10004; Today by 4pm</span> Next Gen confirmed by 4pm.</div><button class="copy-btn" id="cn1846470" onclick="C('1846470')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1846470"><button class="split-main" onclick="T('confirm','1846470','TUMI Charlotte Southpark #1192','Next Gen Facility')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1846470','TUMI Charlotte Southpark #1192','Next Gen Facility')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr class="red-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847272" onchange="D(this)"></td><td><div class="wo" style="color:#f87171">1847272</div><div style="font-size:10px;color:#f87171">4pm &#9888; SLA!</div></td><td class="loc">Psycho Bunny PR #115<br><span class="sub">Barceloneta, PR &mdash; Electrical</span></td><td class="vnd">ARGA LLC<br><span class="sub" style="color:#f87171">SLA EXPIRED 1:23pm</span></td><td><div class="fit">Scheduled 6/2 by 4 PM &#8212; SLA EXPIRED</div><div class="email"><span class="tag t-urg">&#9888; SLA EXPIRED</span> Irving / ARGA (6/1 HIGH): &ldquo;We shall send our Tech tomorrow, Tuesday June 2, 2026 in the afternoon (before 4pm) if not sooner.&rdquo; Tech should be ON SITE NOW. Confirm!</div><button class="copy-btn" id="cn1847272" onclick="C('1847272')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847272"><button class="split-main" onclick="T('confirm','1847272','Psycho Bunny Barceloneta PR #115','ARGA LLC')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1847272','Psycho Bunny Barceloneta PR #115','ARGA LLC')">&#10003; Confirm Completion</button><button class="drop-item" onclick="T('eta','1847272','Psycho Bunny Barceloneta PR #115','ARGA LLC')">&#128230; ETA Request</button></div></div></td></tr>
+<tr class="green-l"><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1842912" onchange="D(this)"></td><td><div class="wo">1842912</div><div style="font-size:10px;color:#fbbf24">5:00 PM</div></td><td class="loc">Krispy Kreme #175<br><span class="sub">Elk Grove Village, IL &mdash; Building Ext.</span></td><td class="vnd">Chicago Field Services</td><td><div class="fit">Scheduled 6/2 5:00 PM</div><div class="email"><span class="tag t-ok">&#10004; Today 5pm</span> Chicago Field confirmed 5pm window.</div><button class="copy-btn" id="cn1842912" onclick="C('1842912')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1842912"><button class="split-main" onclick="T('confirm','1842912','Krispy Kreme Elk Grove Village #175','Chicago Field Services')">&#10003; Confirm</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1842912','Krispy Kreme Elk Grove Village #175','Chicago Field Services')">&#10003; Confirm Completion</button></div></div></td></tr>
+</tbody></table>
+
+<div class="section-hdr" style="margin-top:20px"><span>&#9201; Needs Scheduling / Action</span><span style="font-size:11px;font-weight:normal;opacity:.8">9 WOs</span></div>
+<table><thead><tr><th class="chk-cell">&#10003;</th><th style="width:75px">WO #</th><th style="width:170px">Location</th><th style="width:130px">Vendor</th><th>FIT Note + Email Update</th><th style="width:150px">Action</th></tr></thead><tbody>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1845493" onchange="D(this)"></td><td class="wo">1845493</td><td class="loc">J.Crew Factory #1163<br><span class="sub">Vernon Hill, IL &mdash; Locksmith</span></td><td class="vnd">Chicago Field Services</td><td><div class="fit">Detex shipped tracking 872346317509 EOD 6/1</div><div class="email"><span class="tag t-mat">Part Shipped</span> Bill Beam (6/2): &ldquo;Detex shipped to store.&rdquo; Confirm received then schedule install.</div><button class="copy-btn" id="cn1845493" onclick="C('1845493')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1845493"><button class="split-main" onclick="T('schedule','1845493','J.Crew Factory Vernon Hill #1163','Chicago Field Services')">&#128197; Schedule</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1845493','J.Crew Factory Vernon Hill #1163','Chicago Field Services')">&#128230; ETA Request</button><button class="drop-item" onclick="T('schedule','1845493','J.Crew Factory Vernon Hill #1163','Chicago Field Services')">&#128197; Schedule Install</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1845501" onchange="D(this)"></td><td class="wo">1845501</td><td class="loc">Lululemon Soho #10651<br><span class="sub">New York, NY &mdash; Electrical</span></td><td class="vnd">Next Gen Electric</td><td><div class="fit">Need ETA from vendor; relay to Corp &amp; HVAC</div><div class="email"><span class="tag t-pend">Active</span> Next Gen tried calling corp contact. JPineda CS-Hudson acknowledged update.</div><button class="copy-btn" id="cn1845501" onclick="C('1845501')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1845501"><button class="split-main" onclick="T('eta','1845501','Lululemon Soho #10651','Next Gen Electric')">&#128230; ETA</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1845501','Lululemon Soho #10651','Next Gen Electric')">&#128230; ETA Request</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847447" onchange="D(this)"></td><td class="wo">1847447</td><td class="loc">J.Crew Factory #1051<br><span class="sub">Marietta, GA &mdash; Handyman</span></td><td class="vnd">Gold Oak Renovations</td><td><div class="fit">Pending acceptance</div><div class="email"><span class="tag t-pend">Pending</span> Client CS-Hudson (6/2 2:51 AM): &ldquo;STANDARD SERVICE NEEDED&rdquo; &#8212; urgent client flag.</div><button class="copy-btn" id="cn1847447" onclick="C('1847447')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847447"><button class="split-main" onclick="T('eta','1847447','J.Crew Factory Marietta #1051','Gold Oak Renovations')">&#128230; ETA</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1847447','J.Crew Factory Marietta #1051','Gold Oak Renovations')">&#128230; ETA Request</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847110" onchange="D(this)"></td><td class="wo">1847110</td><td class="loc">J.Crew Factory #1183<br><span class="sub">Houston, TX &mdash; Plumbing</span></td><td class="vnd">ABV Services</td><td><div class="fit">Tech accepted, need schedule</div><div class="email"><span class="tag t-pend">Needs Date</span> ABV acknowledged (6/1). FIT: &ldquo;Tech Accepted need schedule.&rdquo;</div><button class="copy-btn" id="cn1847110" onclick="C('1847110')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847110"><button class="split-main" onclick="T('schedule','1847110','J.Crew Factory Houston #1183','ABV Services')">&#128197; Schedule</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('schedule','1847110','J.Crew Factory Houston #1183','ABV Services')">&#128197; Schedule Install</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847236" onchange="D(this)"></td><td class="wo">1847236</td><td class="loc">TUMI #1107 PHL Airport<br><span class="sub">Philadelphia, PA &mdash; Carpentry</span></td><td class="vnd">Bolt Facility</td><td><div class="fit">Need to schedule, PHILLY AIRPORT</div><div class="email"><span class="tag t-pend">Needs Date</span> Bolt acknowledged (6/1). Airport location &#8212; needs confirmed date.</div><button class="copy-btn" id="cn1847236" onclick="C('1847236')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847236"><button class="split-main" onclick="T('schedule','1847236','TUMI Philadelphia Airport #1107','Bolt Facility')">&#128197; Schedule</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('schedule','1847236','TUMI Philadelphia Airport #1107','Bolt Facility')">&#128197; Schedule Install</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1837150" onchange="D(this)"></td><td class="wo">1837150</td><td class="loc">Psycho Bunny Canada #050<br><span class="sub">Toronto, ON &#127464;&#127462; &mdash; Handyman</span></td><td class="vnd">WEDIA Corp</td><td><div class="fit">Sent to Wedia for 2nd assessment</div><div class="email"><span class="tag t-pend">2nd Assessment</span> Facility Plus (6/1): Acknowledged. <em>Canadian WO &#8212; use CAN account for SC.</em></div><button class="copy-btn" id="cn1837150" onclick="C('1837150')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1837150"><button class="split-main" onclick="T('eta','1837150','Psycho Bunny Canada Toronto #050','WEDIA Corp')">&#128230; ETA</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1837150','Psycho Bunny Canada Toronto #050','WEDIA Corp')">&#128230; ETA Request</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1846477" onchange="D(this)"></td><td class="wo">1846477</td><td class="loc">Uniqlo LA #S5502000093<br><span class="sub">Los Angeles, CA &mdash; Handyman</span></td><td class="vnd">Junkluggers</td><td><div class="fit">Scheduled 5/30 by Noon PST</div><div class="email"><span class="tag t-mat">Complete?</span> Junkluggers confirmed 5/30. Follow-up today &#8212; confirm completion docs received.</div><button class="copy-btn" id="cn1846477" onclick="C('1846477')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1846477"><button class="split-main" onclick="T('confirm','1846477','Uniqlo LA','Junkluggers')">&#10003; Close Out</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('confirm','1846477','Uniqlo LA','Junkluggers')">&#10003; Confirm Completion</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1841844" onchange="D(this)"></td><td class="wo">1841844</td><td class="loc">Dicks Sporting Goods #01664<br><span class="sub">Kennesaw, GA &mdash; Plumbing</span></td><td class="vnd">Amazon.com Inc</td><td><div class="fit">Sent to Amazon</div><div class="email"><span class="tag t-pend">Dispatched</span> Awaiting Amazon acceptance and schedule.</div><button class="copy-btn" id="cn1841844" onclick="C('1841844')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1841844"><button class="split-main" onclick="T('eta','1841844','Dicks Kennesaw #01664','Amazon')">&#128230; ETA</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1841844','Dicks Kennesaw #01664','Amazon')">&#128230; ETA Request</button></div></div></td></tr>
+<tr><td class="chk-cell"><input type="checkbox" class="chk" data-wo="1847595" onchange="D(this)"></td><td class="wo">1847595</td><td class="loc">Buffalo Wild Wings #0775<br><span class="sub">Saugus, MA &mdash; Plumbing</span></td><td class="vnd">NERRM</td><td><div class="fit">Sent to NERRM</div><div class="email"><span class="tag t-pend">New Today</span> Just dispatched &#8212; awaiting NERRM acceptance.</div><button class="copy-btn" id="cn1847595" onclick="C('1847595')">&#128203; Copy Note</button></td><td class="row-btns"><div class="split-btn" id="sb1847595"><button class="split-main" onclick="T('eta','1847595','Buffalo Wild Wings Saugus #0775','NERRM')">&#128230; ETA</button><button class="split-arrow" onclick="DD(this,event)">&#9660;</button><div class="drop-menu"><div class="drop-hdr">Template</div><button class="drop-item" onclick="T('eta','1847595','Buffalo Wild Wings Saugus #0775','NERRM')">&#128230; ETA Request</button></div></div></td></tr>
+</tbody></table>
+
+<div style="margin-top:14px;font-size:11px;color:#475569">&#9646; Green = confirmed on-site today &nbsp;&bull;&nbsp; &#9646; Red = needs immediate action &nbsp;&bull;&nbsp; &#9646; Orange = needs clarification &nbsp;&bull;&nbsp; &#9646; Yellow = new update found today &nbsp;&bull;&nbsp; Checkmarks save in browser</div>
+
+<script>
+var NOTES={"1847538":"Good afternoon, we can confirm our technician is scheduled to be on-site this Thursday, June 4th. We will provide an update ASAP. Thank you for your patience.","1847531":"Good afternoon, we can confirm our technician is scheduled to be on-site this Thursday, June 4th. We will provide an update ASAP. Thank you for your patience.","1847587":"Good afternoon, we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update as soon as it is confirmed. Thank you for your patience.","1847597":"Good afternoon, we are actively working to assign a technician to this work order. We will provide an update ASAP. Thank you for your patience.","1827324":"Good afternoon, we can confirm our technician is on-site today between 11:00 AM and 1:00 PM CST. We will provide an update ASAP. Thank you for your patience.","1847103":"Good afternoon, we can confirm our technician is on-site today between 10:00 AM and 2:00 PM. We will provide an update ASAP. Thank you for your patience.","1847518":"Good afternoon, we are actively working to dispatch an alternative technician for today's emergency service. We will provide an update ASAP. Thank you for your patience.","1841800":"Good afternoon, we can confirm our technician is on-site today between 12:00 PM and 4:00 PM. We will provide an update ASAP. Thank you for your patience.","1846852":"Good afternoon, we can confirm our technician is on-site today at 2:00 PM. We will provide an update ASAP. Thank you for your patience.","1846911":"Good afternoon, we can confirm our technician is on-site today at 2:00 PM. We will provide an update ASAP. Thank you for your patience.","1846832":"Good afternoon, we can confirm our technician is on-site today between 12:00 PM and 2:00 PM PST. We will provide an update ASAP. Thank you for your patience.","1847420":"Good afternoon, we can confirm our technician is on-site today between 12:00 PM and 2:00 PM PST. We will provide an update ASAP. Thank you for your patience.","1847427":"Good afternoon, we can confirm our technician is on-site today between 1:30 PM and 3:30 PM. We will provide an update ASAP. Thank you for your patience.","1847099":"Good afternoon, we are following up with our technician to confirm the updated service date for this work order. We will provide a confirmed schedule date ASAP. Thank you for your patience.","1846666":"Good afternoon, we can confirm our technician is on-site today between 12:00 PM and 3:00 PM MST. We will provide an update ASAP. Thank you for your patience.","1847378":"Good afternoon, we can confirm our technician is on-site today between 1:00 PM and 3:00 PM CST. We will provide an update ASAP. Thank you for your patience.","1846470":"Good afternoon, we can confirm our technician is scheduled to be on-site today by 4:00 PM. We will provide an update ASAP. Thank you for your patience.","1847272":"Good afternoon, our technician is scheduled to be on-site today before 4:00 PM. We will provide a completion confirmation ASAP. Thank you for your patience.","1842912":"Good afternoon, we can confirm our technician is on-site today at 5:00 PM. We will provide an update ASAP. Thank you for your patience.","1845493":"Good afternoon, the required parts for this work order have been shipped to the store location. We are following up to confirm receipt and will schedule installation once confirmed. We will provide an update ASAP. Thank you for your patience.","1845501":"Good afternoon, we have followed up with our technician regarding scheduling and are actively working to confirm a date. We will provide an update ASAP. Thank you for your patience.","1847447":"Good afternoon, we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.","1847110":"Good afternoon, our technician has accepted this work order and we are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.","1847236":"Good afternoon, we have dispatched this work order to our technician and are actively working to confirm a schedule date for this airport location. We will provide an update ASAP. Thank you for your patience.","1837150":"Good afternoon, we have dispatched our technician for a second assessment and are awaiting their findings. We will provide an update ASAP. Thank you for your patience.","1846477":"Good afternoon, our technician completed service on this work order on May 30th. We are following up to ensure all close-out documentation has been submitted. Thank you for your patience.","1841844":"Good afternoon, we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.","1847595":"Good afternoon, we have dispatched this work order to our technician and are awaiting acceptance. We will provide a confirmed schedule date ASAP. Thank you for your patience."};
+
+function getGreeting(){var h=new Date().getHours();return h<12?'Good morning,':h<17?'Good afternoon,':'Good evening,';}
+function C(wo){var raw=NOTES[wo]||'Good afternoon, we are actively working on this work order and will provide an update ASAP. Thank you for your patience.';var note=raw.replace(/^Good (morning|afternoon|evening),/,getGreeting());var btn=document.getElementById('cn'+wo);var fb=function(){var ta=document.createElement('textarea');ta.value=note;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);btn.textContent='Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy Note';btn.classList.remove('copied');},2000);};if(navigator.clipboard)navigator.clipboard.writeText(note).then(function(){btn.textContent='Copied!';btn.classList.add('copied');setTimeout(function(){btn.textContent='Copy Note';btn.classList.remove('copied');},2000);}).catch(fb);else fb();}
+function D(chk){var row=chk.closest('tr');if(chk.checked)row.classList.add('done');else row.classList.remove('done');try{var done=[];document.querySelectorAll('.chk:checked').forEach(function(c){done.push(c.dataset.wo);});localStorage.setItem('wo_done_today',JSON.stringify(done));}catch(e){}}
+window.addEventListener('DOMContentLoaded',function(){try{var done=JSON.parse(localStorage.getItem('wo_done_today')||'[]');done.forEach(function(wo){var c=document.querySelector('.chk[data-wo="'+wo+'"]');if(c){c.checked=true;c.closest('tr').classList.add('done');}});}catch(e){}});
+document.addEventListener('click',function(e){if(!e.target.closest('.split-btn'))document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});});
+function DD(btn,ev){if(ev){ev.stopPropagation();ev.preventDefault();}var m=btn.closest('.split-btn').querySelector('.drop-menu');document.querySelectorAll('.drop-menu.open').forEach(function(x){if(x!==m)x.classList.remove('open');});m.classList.toggle('open');}
+var TT={eta:{s:function(w,l){return 'WO #'+w+' Follow-Up | '+l;},b:function(w,l){return 'Hi Team,\n\nFollowing up on WO #'+w+' at '+l+'.\n\nCould you please provide a schedule date / tech ETA?\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},schedule:{s:function(w,l){return 'Schedule Needed - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nPlease confirm a date and time for WO #'+w+' at '+l+'.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},confirm:{s:function(w,l){return 'Completion Confirmation - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nCould you please confirm completion of WO #'+w+' at '+l+'?\n\nPlease send photos and close-out notes.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}},return_:{s:function(w,l){return 'Return Trip - WO #'+w+' | '+l;},b:function(w,l){return 'Hi Team,\n\nWO #'+w+' at '+l+' requires a return visit. Please advise on availability.\n\nThank you,\nTyler Kotchkowski\nRSM Facility Solutions\n(973) 253-9300';}}};
+function T(type,wo,loc,vendor){var t=TT[type]||TT.eta;var w=window.open('https://outlook.cloud.microsoft/mail/deeplink/compose?subject='+encodeURIComponent(t.s(wo,loc))+'&body='+encodeURIComponent(t.b(wo,loc)),'outlook_drafts');if(w)setTimeout(function(){try{w.blur();window.focus();}catch(e){}},200);var sb=document.getElementById('sb'+wo);if(sb){sb.querySelector('.split-main').textContent='Drafted';sb.classList.add('drafted');}document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});}
+
+// ── Notes ─────────────────────────────────────────────────
+function toggleNotes(wo) {
+  var panel = document.getElementById('notes-' + wo);
+  var btn = document.getElementById('nb' + wo);
+  var isOpen = panel.classList.toggle('open');
+  btn.textContent = isOpen ? '✕ Close' : '📝 Notes';
+  if (isOpen) loadNote(wo);
+}
+function loadNote(wo) {
+  try {
+    var data = JSON.parse(localStorage.getItem('wonote_' + wo) || '{}');
+    if (data.note) document.getElementById('note-text-' + wo).value = data.note;
+    if (data.followup) document.getElementById('note-followup-' + wo).value = data.followup;
+    if (data.date) document.getElementById('note-date-' + wo).value = data.date;
+    // Show indicator if has note
+    var btn = document.getElementById('nb' + wo);
+    if (btn && data.note) btn.classList.add('has-note');
+  } catch(e){}
+}
+function saveNote(wo) {
+  var data = {
+    note: document.getElementById('note-text-' + wo).value,
+    followup: document.getElementById('note-followup-' + wo).value,
+    date: document.getElementById('note-date-' + wo).value,
+    updated: new Date().toLocaleString()
+  };
+  localStorage.setItem('wonote_' + wo, JSON.stringify(data));
+  var btn = document.getElementById('note-save-' + wo);
+  btn.textContent = '✓ Saved!'; btn.classList.add('saved');
+  setTimeout(function(){ btn.textContent = 'Save Notes'; btn.classList.remove('saved'); }, 2000);
+  var nb = document.getElementById('nb' + wo);
+  if (nb && data.note) nb.classList.add('has-note');
+}
+
+// ── History Queue ─────────────────────────────────────────
+var historyItems = JSON.parse(localStorage.getItem('wo_history') || '[]');
+
+function D(chk) {
+  var wo = chk.dataset.wo;
+  if (chk.checked) {
+    // Capture row info before hiding
+    var row = chk.closest('tr');
+    var loc = row.querySelector('.loc') ? row.querySelector('.loc').innerText.trim() : wo;
+    var email = row.querySelector('.email') ? row.querySelector('.email').innerText.trim().substring(0,80) + '...' : '';
+    // Fade out
+    row.style.transition = 'opacity 0.4s';
+    row.style.opacity = '0';
+    var notesRow = document.getElementById('notes-row-' + wo);
+    setTimeout(function() {
+      row.style.display = 'none';
+      if (notesRow) notesRow.style.display = 'none';
+      // Add to history
+      var existing = historyItems.find(function(i){ return i.wo === wo; });
+      if (!existing) {
+        historyItems.push({ wo: wo, loc: loc, email: email, time: new Date().toLocaleTimeString() });
+        localStorage.setItem('wo_history', JSON.stringify(historyItems));
+      }
+      renderHistory();
+    }, 400);
+  } else {
+    var row = chk.closest('tr');
+    row.style.display = '';
+    row.style.opacity = '1';
+    var notesRow = document.getElementById('notes-row-' + wo);
+    if (notesRow) notesRow.style.display = '';
+    historyItems = historyItems.filter(function(i){ return i.wo !== wo; });
+    localStorage.setItem('wo_history', JSON.stringify(historyItems));
+    renderHistory();
+  }
+  try {
+    var done = []; document.querySelectorAll('.chk:checked').forEach(function(c){ done.push(c.dataset.wo); });
+    localStorage.setItem('wo_done_today', JSON.stringify(done));
+  } catch(e){}
+}
+
+function undoHistory(wo) {
+  var chk = document.querySelector('.chk[data-wo="' + wo + '"]');
+  if (chk) { chk.checked = false; D(chk); }
+  else {
+    historyItems = historyItems.filter(function(i){ return i.wo !== wo; });
+    localStorage.setItem('wo_history', JSON.stringify(historyItems));
+    renderHistory();
+  }
+}
+
+function renderHistory() {
+  var list = document.getElementById('history-list');
+  var count = document.getElementById('history-count');
+  if (!list) return;
+  count.textContent = historyItems.length;
+  if (historyItems.length === 0) { list.innerHTML = '<div style="padding:12px;font-size:11px;color:#475569;text-align:center">No completed WOs yet today</div>'; return; }
+  list.innerHTML = historyItems.map(function(item) {
+    return '<div class="history-item"><div class="wo-tag">' + item.wo + '</div><div class="hist-info"><div style="color:#64748b;font-size:11px">' + (item.loc||'').split('\n')[0] + '</div><div style="color:#475569;font-size:10px;margin-top:2px">Completed ' + (item.time||'') + '</div></div><button class="history-undo" onclick="undoHistory('' + item.wo + '')">&#8617; Undo</button></div>';
+  }).join('');
+}
+
+function toggleHistory() {
+  var list = document.getElementById('history-list');
+  var chev = document.getElementById('history-chevron');
+  list.classList.toggle('open');
+  chev.textContent = list.classList.contains('open') ? '▲' : '▼';
+}
+
+// ── Search ────────────────────────────────────────────────
+function searchWO(val) {
+  val = val.trim();
+  document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
+    var wo = (row.querySelector('.wo') || row.querySelector('[data-wo]'));
+    var woNum = wo ? (wo.textContent || wo.dataset.wo || '').trim() : '';
+    if (!val) {
+      row.classList.remove('row-highlight');
+      if (!row.querySelector('.chk:checked')) row.style.display = '';
+    } else {
+      if (woNum.includes(val)) {
+        row.classList.add('row-highlight');
+        row.style.display = '';
+        if (woNum === val) {
+          row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          openModal(val);
+        }
+      } else {
+        row.classList.remove('row-highlight');
+        row.style.display = 'none';
+      }
+    }
+    // Also hide/show associated notes row
+    var notesRow = document.getElementById('notes-row-' + woNum);
+    if (notesRow) notesRow.style.display = val && !woNum.includes(val) ? 'none' : '';
+  });
+  // Also show/hide section headers
+  document.querySelectorAll('.section-hdr').forEach(function(hdr) {
+    if (!val) { hdr.style.display = ''; return; }
+    var tbl = hdr.nextElementSibling;
+    if (tbl && tbl.tagName === 'TABLE') {
+      var visible = Array.from(tbl.querySelectorAll('tbody tr:not(.notes-row)')).some(function(r){ return r.style.display !== 'none'; });
+      hdr.style.display = visible ? '' : 'none';
+      tbl.style.display = visible ? '' : 'none';
+    }
+  });
+}
+
+// ── WO Detail Modal ───────────────────────────────────────
+var WO_DATA = {};
+document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
+  var wo = row.querySelector('[data-wo]');
+  if (!wo) return;
+  var woNum = wo.dataset ? wo.dataset.wo : '';
+  if (!woNum) return;
+  WO_DATA[woNum] = {
+    loc: row.querySelector('.loc') ? row.querySelector('.loc').innerText.trim() : '',
+    vnd: row.querySelector('.vnd') ? row.querySelector('.vnd').innerText.trim() : '',
+    fit: row.querySelector('.fit') ? row.querySelector('.fit').innerText.trim() : '',
+    email: row.querySelector('.email') ? row.querySelector('.email').innerText.trim() : ''
+  };
+});
+
+function openModal(wo) {
+  var data = WO_DATA[wo] || {};
+  var savedNote = {};
+  try { savedNote = JSON.parse(localStorage.getItem('wonote_' + wo) || '{}'); } catch(e){}
+  var clientNote = (typeof NOTES !== 'undefined' && NOTES[wo]) ? NOTES[wo] : '';
+  
+  document.getElementById('modal-title').textContent = 'WO #' + wo;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-label">Location / Vendor</div>
+      <div style="font-size:12px;color:#e2e8f0;font-weight:600">${esc(data.loc||wo)}</div>
+      <div style="font-size:11px;color:#94a3b8;margin-top:2px">${esc(data.vnd||'')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">FIT Note</div>
+      <div class="modal-fit">${esc(data.fit||'No FIT note')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Latest Email Update</div>
+      <div class="modal-email">${esc(data.email||'No email update')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">&#128203; Quick Client Note</div>
+      <div class="client-note-btns">
+        <button class="cn-prompt" onclick="copyModalNote(this,'scheduled_today')">&#10004; Scheduled Today</button>
+        <button class="cn-prompt" onclick="copyModalNote(this,'scheduled_week')">&#128197; Scheduled This Week</button>
+        <button class="cn-prompt" onclick="copyModalNote(this,'dispatched')">&#9889; Dispatched</button>
+        <button class="cn-prompt" onclick="copyModalNote(this,'material')">&#128230; Material Ordered</button>
+        <button class="cn-prompt" onclick="copyModalNote(this,'followup_sent')">&#128139; Follow-Up Sent</button>
+        <button class="cn-prompt" onclick="copyModalNote(this,'custom')">&#128221; Custom (from notes)</button>
+      </div>
+      <div id="modal-note-preview" style="font-size:11px;color:#67e8f9;background:#0c2333;border:1px solid #164e63;border-radius:4px;padding:6px 8px;display:none;line-height:1.5"></div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">&#128221; Notes</div>
+      <textarea style="width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:6px 8px;font-size:11px;color:#e2e8f0;resize:vertical;min-height:70px;font-family:Arial;outline:none" id="modal-note-text-${wo}" placeholder="Add notes...">${esc(savedNote.note||'')}</textarea>
+    </div>
+    <div class="modal-grid">
+      <div>
+        <div class="modal-section-label">&#128197; Next Follow-Up Date</div>
+        <input type="date" style="width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:5px 8px;font-size:12px;color:#e2e8f0;outline:none" id="modal-date-${wo}" value="${savedNote.date||'2026-06-03'}">
+      </div>
+      <div>
+        <div class="modal-section-label">&#128203; Follow-Up Note</div>
+        <input type="text" style="width:100%;background:#0f172a;border:1px solid #334155;border-radius:4px;padding:5px 8px;font-size:12px;color:#e2e8f0;outline:none" id="modal-fu-${wo}" placeholder="What to check..." value="${esc(savedNote.followup||'')}">
+      </div>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button style="background:#1d4ed8;color:#fff;border:none;border-radius:4px;padding:6px 16px;font-size:12px;font-weight:bold;cursor:pointer" onclick="saveModalNote('${wo}')">Save Notes</button>
+      <button style="background:#052e16;color:#4ade80;border:1px solid #059669;border-radius:4px;padding:6px 16px;font-size:12px;cursor:pointer" onclick="C('${wo}');closeModal()">&#128203; Copy &amp; Close</button>
+    </div>
+  `;
+  // Store wo for modal note prompts
+  document.getElementById('wo-modal').dataset.wo = wo;
+  document.getElementById('wo-modal').classList.add('open');
+}
+
+function copyModalNote(btn, type) {
+  var wo = document.getElementById('wo-modal').dataset.wo;
+  var h = new Date().getHours();
+  var greeting = h < 12 ? 'Good morning,' : h < 17 ? 'Good afternoon,' : 'Good evening,';
+  var templates = {
+    scheduled_today: greeting + ' we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.',
+    scheduled_week: greeting + ' we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.',
+    dispatched: greeting + ' we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.',
+    material: greeting + ' the required materials for this work order have been ordered and are expected to arrive shortly. We will schedule installation once received. Thank you for your patience.',
+    followup_sent: greeting + ' we have followed up with our technician regarding this work order and are awaiting their response. We will provide an update ASAP. Thank you for your patience.',
+    custom: document.getElementById('modal-note-text-' + wo) ? document.getElementById('modal-note-text-' + wo).value : ''
+  };
+  var note = templates[type] || templates.dispatched;
+  var preview = document.getElementById('modal-note-preview');
+  if (preview) { preview.textContent = note; preview.style.display = 'block'; }
+  if (navigator.clipboard) navigator.clipboard.writeText(note);
+  else { var ta = document.createElement('textarea'); ta.value=note; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
+  var orig = btn.textContent; btn.textContent = '✓ Copied!'; btn.style.color='#4ade80'; btn.style.borderColor='#14532d';
+  setTimeout(function(){ btn.textContent=orig; btn.style.color=''; btn.style.borderColor=''; }, 2000);
+}
+
+function saveModalNote(wo) {
+  var data = {
+    note: (document.getElementById('modal-note-text-' + wo)||{}).value || '',
+    followup: (document.getElementById('modal-fu-' + wo)||{}).value || '',
+    date: (document.getElementById('modal-date-' + wo)||{}).value || '',
+    updated: new Date().toLocaleString()
+  };
+  localStorage.setItem('wonote_' + wo, JSON.stringify(data));
+  // Also update inline notes panel if open
+  var ta = document.getElementById('note-text-' + wo);
+  if (ta) ta.value = data.note;
+  var nb = document.getElementById('nb' + wo);
+  if (nb && data.note) nb.classList.add('has-note');
+  alert('Notes saved for WO ' + wo);
+}
+
+function closeModal() {
+  document.getElementById('wo-modal').classList.remove('open');
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+// Close modal on overlay click
+document.getElementById('wo-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+
+// ── Update Board Button ───────────────────────────────────
+function copyUpdatePrompt() {
+  var prompt = 'Run WO board update: open FIT in Chrome, click the FL All Dispatch board, extract all work orders, search Outlook emails for updates on each WO, rebuild the board HTML with fresh data and all features (tabs, notes, dropdowns, templates, vendor stats), then upload to rsm-wo-board.tiiny.site via the tiiny.host Update flow.';
+  if (navigator.clipboard) navigator.clipboard.writeText(prompt);
+  else { var ta=document.createElement('textarea');ta.value=prompt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
+  var btn = document.getElementById('update-board-btn');
+  btn.textContent = '✓ Prompt Copied — Paste in Claude';
+  btn.style.background = '#16a34a';
+  setTimeout(function(){ btn.innerHTML = '&#128260; Update Board'; btn.style.background = '#1d4ed8'; }, 3000);
+}
+
+// ── Tab Navigation ────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('btn-' + name).classList.add('active');
+  if (name === 'templates') renderTemplates();
+  if (name === 'vendors') renderVendors();
+}
+
+// ── Templates ─────────────────────────────────────────────
+var DEFAULT_TEMPLATES = [
+  { id: 'tpl_sched_today', title: 'Scheduled Today', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site today. We will provide an update ASAP. Thank you for your patience.' },
+  { id: 'tpl_sched_week',  title: 'Scheduled This Week', body: 'Good {greeting}, we can confirm our technician is scheduled to be on-site this week. We will provide the exact date and time ASAP. Thank you for your patience.' },
+  { id: 'tpl_dispatched',  title: 'Dispatched / Pending Date', body: 'Good {greeting}, we have dispatched this work order to our technician and are actively working to confirm a schedule date. We will provide an update ASAP. Thank you for your patience.' },
+  { id: 'tpl_materials',   title: 'Materials Ordered', body: 'Good {greeting}, the required materials for this work order have been ordered and are expected to arrive shortly. We will schedule installation once received. Thank you for your patience.' },
+  { id: 'tpl_followup',    title: 'Followed Up With Tech', body: 'Good {greeting}, we have followed up with our technician regarding this work order and are awaiting their response. We will provide an update ASAP. Thank you for your patience.' },
+  { id: 'tpl_quote',       title: 'Quote Pending Approval', body: 'Good {greeting}, we have received a quote for the required repairs and it is currently pending internal approval. We will provide an update on the next steps ASAP. Thank you for your patience.' },
+  { id: 'tpl_complete',    title: 'Service Completed', body: 'Good {greeting}, we can confirm our technician has completed service on this work order. Close-out documentation is being processed. Thank you for your patience.' }
+];
+
+function loadTemplates() {
+  try {
+    var saved = JSON.parse(localStorage.getItem('rsm_templates') || 'null');
+    return saved || JSON.parse(JSON.stringify(DEFAULT_TEMPLATES));
+  } catch(e) { return JSON.parse(JSON.stringify(DEFAULT_TEMPLATES)); }
+}
+
+function saveTemplates(tpls) {
+  localStorage.setItem('rsm_templates', JSON.stringify(tpls));
+}
+
+function addTemplate() {
+  var tpls = loadTemplates();
+  tpls.push({ id: 'tpl_' + Date.now(), title: 'New Template', body: 'Good {greeting}, ...' });
+  saveTemplates(tpls);
+  renderTemplates();
+}
+
+function deleteTemplate(id) {
+  var tpls = loadTemplates().filter(function(t){ return t.id !== id; });
+  saveTemplates(tpls);
+  renderTemplates();
+}
+
+function saveSingleTemplate(id) {
+  var tpls = loadTemplates();
+  var tpl = tpls.find(function(t){ return t.id === id; });
+  if (!tpl) return;
+  tpl.title = (document.getElementById('ttitle_' + id)||{}).value || tpl.title;
+  tpl.body  = (document.getElementById('tbody_'  + id)||{}).value || tpl.body;
+  saveTemplates(tpls);
+  var btn = document.getElementById('tsave_' + id);
+  if (btn) { btn.textContent = '✓ Saved'; setTimeout(function(){ btn.textContent = 'Save'; }, 1500); }
+}
+
+function copyTemplate(id) {
+  var tpls = loadTemplates();
+  var tpl  = tpls.find(function(t){ return t.id === id; });
+  if (!tpl) return;
+  var body = ((document.getElementById('tbody_' + id)||{}).value || tpl.body);
+  var h = new Date().getHours();
+  var gr = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+  var text = body.replace(/{greeting}/g, gr);
+  if (navigator.clipboard) navigator.clipboard.writeText(text);
+  else { var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta); }
+  var btn = document.getElementById('tcopy_' + id);
+  if (btn) { btn.textContent = '✓ Copied!'; setTimeout(function(){ btn.textContent = '📋 Copy'; }, 1500); }
+}
+
+function renderTemplates() {
+  var tpls = loadTemplates();
+  var container = document.getElementById('tpl-list');
+  if (!container) return;
+  container.innerHTML = tpls.map(function(t) {
+    var id = t.id;
+    return '<div class="tpl-card" id="tplcard_' + id + '">' +
+      '<input class="tpl-title-input" id="ttitle_' + id + '" value="' + esc(t.title) + '" placeholder="Template name...">' +
+      '<textarea class="tpl-body-input" id="tbody_' + id + '" placeholder="Template text... use {greeting} for auto Good morning/afternoon/evening">' + esc(t.body) + '</textarea>' +
+      '<div style="font-size:10px;color:#475569;margin:3px 0 6px">Tip: use <code style="color:#67e8f9">{greeting}</code> → auto Good morning/afternoon/evening</div>' +
+      '<div class="tpl-actions">' +
+        '<button class="tpl-copy-btn" id="tcopy_' + id + '" onclick="copyTemplate(\'' + id + '\')">📋 Copy</button>' +
+        '<button class="tpl-save-btn" id="tsave_' + id + '" onclick="saveSingleTemplate(\'' + id + '\')">Save</button>' +
+        '<button class="tpl-del-btn" onclick="if(confirm(\'Delete this template?\'))deleteTemplate(\'' + id + '\')">✕ Delete</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── Vendor Stats ──────────────────────────────────────────
+function renderVendors() {
+  // Build stats from WO_DATA (populated at DOMContentLoaded)
+  var stats = {};
+  Object.keys(WO_DATA).forEach(function(wo) {
+    var d = WO_DATA[wo];
+    var vname = (d.vnd || 'Unknown').split('\n')[0].trim();
+    if (!stats[vname]) stats[vname] = { wos: [], confirmed: 0, problem: 0, pending: 0, warn: 0 };
+    var s = stats[vname];
+    s.wos.push(wo);
+    var row = document.querySelector('.chk[data-wo="' + wo + '"]');
+    var hasGreen = row && row.closest('tr') && row.closest('tr').classList.contains ? false : false;
+    if (row) {
+      var tr = row.closest('tr');
+      if (tr.classList.contains('green-l')) s.confirmed++;
+      else if (tr.classList.contains('red-l')) s.problem++;
+      else if (tr.classList.contains('orange-l')) s.warn++;
+      else s.pending++;
+    }
+  });
+
+  var container = document.getElementById('vendor-grid');
+  if (!container) return;
+  var names = Object.keys(stats).sort();
+  container.innerHTML = names.map(function(name) {
+    var s = stats[name];
+    var total = s.wos.length;
+    var noteKey = 'vendornote_' + name.replace(/\W+/g,'_');
+    var saved = '';
+    try { saved = localStorage.getItem(noteKey) || ''; } catch(e){}
+    var confPct = total > 0 ? Math.round(s.confirmed/total*100) : 0;
+    var confClass = confPct >= 75 ? 'good' : confPct >= 40 ? 'warn' : 'bad';
+    var probClass = s.problem > 0 ? 'bad' : 'good';
+    return '<div class="vendor-card">' +
+      '<div class="vendor-name">' + esc(name) + '</div>' +
+      '<div class="vendor-stat"><span>Total WOs Today</span><span class="vendor-stat-val">' + total + '</span></div>' +
+      '<div class="vendor-stat"><span>✓ Confirmed On-Site</span><span class="vendor-stat-val ' + confClass + '">' + s.confirmed + ' (' + confPct + '%)</span></div>' +
+      (s.problem ? '<div class="vendor-stat"><span>⚠ Issues / Declined</span><span class="vendor-stat-val bad">' + s.problem + '</span></div>' : '') +
+      (s.warn    ? '<div class="vendor-stat"><span>⚡ Needs Clarification</span><span class="vendor-stat-val warn">' + s.warn + '</span></div>' : '') +
+      (s.pending ? '<div class="vendor-stat"><span>⏳ Pending / Dispatched</span><span class="vendor-stat-val">' + s.pending + '</span></div>' : '') +
+      '<div class="vendor-stat"><span>WOs</span><span class="vendor-stat-val" style="font-size:10px;color:#64748b">' + s.wos.join(', ') + '</span></div>' +
+      '<span class="vendor-note-label">📝 Notes</span>' +
+      '<textarea class="vendor-note-ta" id="vnote_' + name.replace(/\W+/g,'_') + '" placeholder="Reliability notes, contact info, issues...">' + esc(saved) + '</textarea>' +
+      '<button class="vendor-save-small" onclick="saveVendorNote(\'' + name.replace(/\W+/g,'_') + '\',\'' + noteKey + '\')">Save Note</button>' +
+    '</div>';
+  }).join('');
+}
+
+function saveVendorNote(slug, key) {
+  var val = (document.getElementById('vnote_' + slug)||{}).value || '';
+  localStorage.setItem(key, val);
+  var btn = event.target;
+  btn.textContent = '✓ Saved'; setTimeout(function(){ btn.textContent = 'Save Note'; }, 1500);
+}
+
+// ── Inject Notes + View buttons + notes panels into every row ─
+function injectNotesUI() {
+  document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
+    var woEl = row.querySelector('[data-wo]');
+    if (!woEl) return;
+    var wo = woEl.dataset ? woEl.dataset.wo : woEl.textContent.trim();
+    if (!wo) return;
+    var rowBtns = row.querySelector('.row-btns');
+    if (rowBtns && !rowBtns.querySelector('.note-btn')) {
+      var btnWrap = document.createElement('div');
+      btnWrap.style.cssText = 'display:flex;gap:4px;margin-top:3px';
+      btnWrap.innerHTML =
+        '<button class="note-btn" id="nb' + wo + '" onclick="toggleNotes(\'' + wo + '\')">&#128221; Notes</button>' +
+        '<button class="note-btn" onclick="openModal(\'' + wo + '\')" style="border-color:#059669;color:#4ade80;background:#052e16">&#128065; View</button>';
+      rowBtns.appendChild(btnWrap);
+    }
+    if (!document.getElementById('notes-row-' + wo)) {
+      var nr = document.createElement('tr');
+      nr.className = 'notes-row';
+      nr.id = 'notes-row-' + wo;
+      nr.innerHTML = '<td colspan="6"><div class="notes-panel" id="notes-' + wo + '">' +
+        '<div class="notes-panel-inner">' +
+          '<div><span class="notes-label">&#128221; Side Notes</span>' +
+          '<textarea class="notes-textarea" id="note-text-' + wo + '" placeholder="Add notes about this WO..."></textarea></div>' +
+          '<div><span class="notes-label">&#128197; Next Follow-Up Date</span>' +
+          '<input type="date" class="notes-date" id="note-date-' + wo + '">' +
+          '<span class="notes-label" style="margin-top:8px;display:block">Follow-Up Note</span>' +
+          '<input type="text" class="notes-date" id="note-followup-' + wo + '" placeholder="What to check next..."></div>' +
+        '</div>' +
+        '<button class="notes-save-btn" id="note-save-' + wo + '" onclick="saveNote(\'' + wo + '\')">Save Notes</button>' +
+      '</div></td>';
+      row.insertAdjacentElement('afterend', nr);
+    }
+  });
+}
+
+// Load notes indicators on start
+window.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('[data-wo]').forEach(function(el) {
+    var wo = el.dataset.wo;
+    if (!wo) return;
+    try {
+      var data = JSON.parse(localStorage.getItem('wonote_' + wo) || '{}');
+      if (data.note) {
+        var nb = document.getElementById('nb' + wo);
+        if (nb) nb.classList.add('has-note');
+      }
+    } catch(e){}
+  });
+  // Restore history
+  try {
+    var done = JSON.parse(localStorage.getItem('wo_done_today') || '[]');
+    done.forEach(function(wo) {
+      var chk = document.querySelector('.chk[data-wo="' + wo + '"]');
+      if (chk) { chk.checked = true; D(chk); }
+    });
+  } catch(e){}
+  injectNotesUI();
+  renderHistory();
+  // Build WO_DATA after DOM ready
+  document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
+    var woEl = row.querySelector('[data-wo]');
+    if (!woEl) return;
+    var wo = woEl.dataset ? woEl.dataset.wo : '';
+    if (!wo) return;
+    WO_DATA[wo] = {
+      loc: row.querySelector('.loc') ? row.querySelector('.loc').innerText.trim() : '',
+      vnd: row.querySelector('.vnd') ? row.querySelector('.vnd').innerText.trim() : '',
+      fit: row.querySelector('.fit') ? row.querySelector('.fit').innerText.trim() : '',
+      email: row.querySelector('.email') ? row.querySelector('.email').innerText.trim() : ''
+    };
+  });
+});
+
+</script>
+
+<!-- Completed / History Queue -->
+<div class="history-wrap" id="history-wrap">
+  <div class="history-hdr" onclick="toggleHistory()">
+    <span>&#10003; Completed Today (<span id="history-count">0</span>)</span>
+    <span id="history-chevron">&#9660;</span>
+  </div>
+  <div class="history-list" id="history-list"></div>
+</div>
+</div><!-- end tab-board -->
+
+<!-- ═══════════════════ TEMPLATES TAB ═══════════════════ -->
+<div id="tab-templates" class="tab-content">
+  <h1 style="margin-bottom:4px">📝 Copy-Paste Templates</h1>
+  <div class="meta" style="margin-bottom:14px">Saved in your browser. Edit, add, and copy notes instantly.</div>
+  <div id="tpl-list"></div>
+  <button class="add-tpl-btn" onclick="addTemplate()">+ Add Template</button>
+</div>
+
+<!-- ═══════════════════ VENDORS TAB ═══════════════════ -->
+<div id="tab-vendors" class="tab-content">
+  <h1 style="margin-bottom:4px">🏢 Vendor Tracker</h1>
+  <div class="meta" style="margin-bottom:14px">Auto-calculated from today's board. Add notes per vendor — saved in your browser.</div>
+  <div id="vendor-grid" class="vendor-grid"></div>
+</div>
+
+</body>
+</html>
