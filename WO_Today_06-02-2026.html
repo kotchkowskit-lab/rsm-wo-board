@@ -177,6 +177,7 @@ tr.done td{opacity:.25}
   <button id="update-board-btn" onclick="copyUpdatePrompt()" style="font-size:12px;font-weight:bold;padding:9px 16px;background:#1d4ed8;color:#fff;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(29,78,216,.4)">
     &#128260; Update Board
   </button>
+  <button onclick="newDayClear()" style="font-size:12px;font-weight:bold;padding:9px 16px;background:#065f46;color:#6ee7b7;border:1px solid #059669;border-radius:6px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px" title="Clear all checkboxes and history for a new day">&#127749; New Day</button>
 </div>
 <div id="status-filter-bar" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;padding:8px 12px;background:#1e293b;border:1px solid #334155;border-radius:6px">
   <span style="font-size:10px;color:#64748b;font-weight:bold;text-transform:uppercase;align-self:center;margin-right:4px">Filter + Update:</span>
@@ -576,6 +577,24 @@ function copyUpdatePrompt() {
   setTimeout(function(){ btn.innerHTML = '&#128260; Update Board'; btn.style.background = '#1d4ed8'; }, 3000);
 }
 
+// ── New Day + Send to History ─────────────────────────
+function newDayClear() {
+  if (!confirm('Start a new day? This will clear all checkboxes and history.')) return;
+  localStorage.removeItem('wo_done_today');
+  localStorage.removeItem('wo_history');
+  historyItems = [];
+  document.querySelectorAll('.chk:checked').forEach(function(c){ c.checked = false; var tr = c.closest('tr'); if(tr){tr.style.opacity='';tr.style.display='';} });
+  document.querySelectorAll('tr[id^="notes-row-"]').forEach(function(r){r.style.display='';});
+  document.querySelectorAll('.section-hdr, table').forEach(function(el){el.style.display='';});
+  renderHistory();
+  showToast('Board cleared for new day!');
+}
+
+function sendToHistory(wo) {
+  var row = document.querySelector('.chk[data-wo="'+wo+'"]');
+  if (row) { row.checked = true; D(row); }
+}
+
 // ── PAT Management ───────────────────────────────────────
 function savePAT() {
   var val = (document.getElementById('pat-input')||{}).value||'';
@@ -810,7 +829,8 @@ function injectNotesUI() {
       btnWrap.style.cssText = 'display:flex;gap:4px;margin-top:3px';
       btnWrap.innerHTML =
         '<button class="note-btn" id="nb' + wo + '" onclick="toggleNotes(\'' + wo + '\')">&#128221; Notes</button>' +
-        '<button class="note-btn" onclick="openModal(\'' + wo + '\')" style="border-color:#059669;color:#4ade80;background:#052e16">&#128065; View</button>';
+        '<button class="note-btn" onclick="openModal(\'' + wo + '\')" style="border-color:#059669;color:#4ade80;background:#052e16">&#128065; View</button>' +
+        '<button class="note-btn" onclick="sendToHistory(\'' + wo + '\')" style="border-color:#334155;color:#64748b" title="Send to History">&#8594; History</button>';
       rowBtns.appendChild(btnWrap);
     }
     if (!document.getElementById('notes-row-' + wo)) {
