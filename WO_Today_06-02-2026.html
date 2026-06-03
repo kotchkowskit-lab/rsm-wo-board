@@ -579,15 +579,26 @@ function copyUpdatePrompt() {
 
 // ── New Day + Send to History ─────────────────────────
 function newDayClear() {
-  if (!confirm('Start a new day? This will clear all checkboxes and history.')) return;
+  if (!confirm('Clear the board for a new day? All work orders will be removed. Run an update to load today\'s WOs.')) return;
   localStorage.removeItem('wo_done_today');
   localStorage.removeItem('wo_history');
   historyItems = [];
-  document.querySelectorAll('.chk:checked').forEach(function(c){ c.checked = false; var tr = c.closest('tr'); if(tr){tr.style.opacity='';tr.style.display='';} });
-  document.querySelectorAll('tr[id^="notes-row-"]').forEach(function(r){r.style.display='';});
-  document.querySelectorAll('.section-hdr, table').forEach(function(el){el.style.display='';});
   renderHistory();
-  showToast('Board cleared for new day!');
+  // Hide all WO rows, section headers, and tables
+  document.querySelectorAll('tbody tr, .section-hdr, #tab-board table, .notes-row').forEach(function(el){ el.style.display='none'; });
+  // Show empty state message
+  var existing = document.getElementById('board-empty-msg');
+  if (!existing) {
+    var msg = document.createElement('div');
+    msg.id = 'board-empty-msg';
+    msg.style.cssText = 'text-align:center;padding:48px 24px;color:#475569;font-size:13px';
+    msg.innerHTML = '<div style="font-size:32px;margin-bottom:12px">&#128203;</div><div style="font-size:15px;color:#64748b;font-weight:bold;margin-bottom:8px">Board Cleared</div><div style="font-size:12px;color:#475569">Click <strong style="color:#93c5fd">&#128260; Update Board</strong> to load today\'s work orders.</div>';
+    var boardTab = document.getElementById('tab-board');
+    if (boardTab) boardTab.appendChild(msg);
+  } else {
+    existing.style.display = '';
+  }
+  showToast('Board cleared — ready for new day!');
 }
 
 function sendToHistory(wo) {
