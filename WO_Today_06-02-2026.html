@@ -112,6 +112,9 @@ tr.done td{opacity:.25}
 .history-undo{font-size:10px;padding:2px 7px;border:1px solid #334155;background:#1e293b;color:#64748b;border-radius:3px;cursor:pointer}
 .history-undo:hover{color:#93c5fd;border-color:#3b82f6}
 
+.filter-hidden{display:none!important}
+.board-cleared{display:none!important}
+
 /* Row highlight from search */
 .row-highlight td{background:#0c2333!important;border-left:3px solid #3b82f6!important}
 
@@ -396,7 +399,7 @@ function searchWO(val) {
   });
   // Also show/hide section headers
   document.querySelectorAll('.section-hdr').forEach(function(hdr) {
-    if (!val) { hdr.style.display = ''; return; }
+    if (!val) { if(!hdr.classList.contains('filter-hidden')) hdr.style.display = ''; return; }
     var tbl = hdr.nextElementSibling;
     if (tbl && tbl.tagName === 'TABLE') {
       var visible = Array.from(tbl.querySelectorAll('tbody tr:not(.notes-row)')).some(function(r){ return r.style.display !== 'none'; });
@@ -583,9 +586,13 @@ function newDayClear() {
   localStorage.removeItem('wo_done_today');
   localStorage.removeItem('wo_history');
   historyItems = [];
+  // Remove any lingering filter classes
+  document.querySelectorAll('.filter-hidden').forEach(function(el){el.classList.remove('filter-hidden');});
+  document.querySelectorAll('.status-filter-btn').forEach(function(b){b.classList.remove('active');});
+  var allBtn=document.querySelector('.status-filter-btn');if(allBtn)allBtn.classList.add('active');
   renderHistory();
   // Hide all WO rows, section headers, and tables
-  document.querySelectorAll('tbody tr, .section-hdr, #tab-board table, .notes-row').forEach(function(el){ el.style.display='none'; });
+  document.querySelectorAll('tbody tr, .section-hdr, #tab-board table, .notes-row').forEach(function(el){ el.classList.add('board-cleared'); });
   // Show empty state message
   var existing = document.getElementById('board-empty-msg');
   if (!existing) {
@@ -656,7 +663,7 @@ function filterByStatus(status, btn) {
   }
   // Filter rows
   document.querySelectorAll('tbody tr:not(.notes-row)').forEach(function(row) {
-    if (status === 'all') { if (!row.querySelector('.chk:checked')) row.style.display = ''; return; }
+    if (status === 'all') { if (!row.querySelector('.chk:checked')) row.classList.remove('filter-hidden'); return; }
     var show = false;
     if (status === 'new' && row.classList.contains('yellow-l')) show = true;
     else if (status === 'confirmed' && row.classList.contains('green-l')) show = true;
@@ -664,14 +671,14 @@ function filterByStatus(status, btn) {
     else if (status === 'quote' && row.classList.contains('orange-l')) show = true;
     else if (status === 'scheduling') { var ft=(row.querySelector('.fit')||{}).textContent||''; var em=(row.querySelector('.email')||{}).textContent||''; var c=ft.toLowerCase()+em.toLowerCase(); show=!row.classList.contains('green-l')&&!row.classList.contains('red-l')&&(c.indexOf('schedul')>-1||c.indexOf('accept')>-1); }
     else if (status === 'materials') { var ft2=((row.querySelector('.fit')||{}).textContent||'').toLowerCase(); show=ft2.indexOf('material')>-1||ft2.indexOf('ship')>-1||ft2.indexOf('part')>-1; }
-    if (!row.querySelector('.chk:checked')) row.style.display = show ? '' : 'none';
+    if (!row.querySelector('.chk:checked')) { if(show) row.classList.remove('filter-hidden'); else row.classList.add('filter-hidden'); }
     var wo=(row.querySelector('[data-wo]')||{}).dataset; var nr=wo&&wo.wo?document.getElementById('notes-row-'+wo.wo):null;
-    if (nr) nr.style.display = show ? '' : 'none';
+    if (nr) { if(show) nr.classList.remove('filter-hidden'); else nr.classList.add('filter-hidden'); }
   });
   document.querySelectorAll('.section-hdr').forEach(function(hdr) {
     var tbl=hdr.nextElementSibling; if (!tbl||tbl.tagName!=='TABLE') return;
     var vis=Array.from(tbl.querySelectorAll('tbody tr:not(.notes-row)')).some(function(r){ return r.style.display!=='none'; });
-    hdr.style.display=vis?'':'none'; tbl.style.display=vis?'':'none';
+    if(vis){hdr.classList.remove('filter-hidden');tbl.classList.remove('filter-hidden');}else{hdr.classList.add('filter-hidden');tbl.classList.add('filter-hidden');}
   });
 }
 
