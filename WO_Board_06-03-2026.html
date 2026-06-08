@@ -1,170 +1,133 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dynamic RSM WO Board</title>
+<title>RSM WO Board (Full Custom)</title>
 <style>
-/* --- KEEPING YOUR STYLE (condensed) --- */
 body{font-family:Arial;background:#0f1117;color:#e2e8f0;padding:16px}
 .board{display:flex;gap:20px}
-.column{flex:1;background:#1e293b;padding:10px;border-radius:6px}
-.card{background:#0f172a;padding:8px;margin-bottom:8px;border-radius:6px;cursor:grab}
+.column{flex:1;background:#1e293b;padding:10px;border-radius:6px;min-height:300px}
+.card{background:#0f172a;padding:10px;margin-bottom:10px;border-radius:6px;cursor:grab;border-left:4px solid #3b82f6}
+.card.green{border-color:#22c55e}
+.card.yellow{border-color:#fbbf24}
+.card.purple{border-color:#8b5cf6}
 .header{display:flex;gap:10px;margin-bottom:10px}
 button{padding:6px 10px;border:none;border-radius:4px;cursor:pointer}
 .add{background:#16a34a;color:white}
 .save{background:#1d4ed8;color:white}
+.edit{background:#334155;color:#e2e8f0;margin-top:5px}
 </style>
 </head>
 <body>
 
-<h2>🧩 RSM Dynamic WO Board</h2>
-
+<h2>🧩 RSM WO Board (Full Custom)</h2>
 <div class="header">
   <button class="add" onclick="addWO()">➕ Add WO</button>
-  <button class="save" onclick="syncToFlow()">🔄 Sync Power Automate</button>
+  <button class="save" onclick="clearBoard()">🧹 Clear</button>
 </div>
 
 <div class="board">
-  <div class="column" id="new" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>⚡ New</h3>
-  </div>
-  <div class="column" id="confirmed" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>✅ Confirmed</h3>
-  </div>
-  <div class="column" id="action" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>⚠ Needs Action</h3>
-  </div>
-  <div class="column" id="materials" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <h3>📦 Materials</h3>
-  </div>
+  <div class="column" id="new" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>⚡ New</h3></div>
+  <div class="column" id="confirmed" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>✅ Confirmed</h3></div>
+  <div class="column" id="action" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>⚠ Needs Action</h3></div>
+  <div class="column" id="materials" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>📦 Materials</h3></div>
 </div>
 
 <script>
-
 let BOARD_DATA = JSON.parse(localStorage.getItem("board_data") || "[]");
 let dragged = null;
 
-function saveData(){
-  localStorage.setItem("board_data", JSON.stringify(BOARD_DATA));
-}
-
+function save(){localStorage.setItem("board_data",JSON.stringify(BOARD_DATA));}
 function render(){
-  document.querySelectorAll(".column").forEach(col => {
-    col.querySelectorAll(".card").forEach(c => c.remove());
+  document.querySelectorAll(".column").forEach(c=>{
+    c.querySelectorAll(".card").forEach(x=>x.remove());
   });
 
-  BOARD_DATA.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.draggable = true;
-    card.id = item.id;
-
-    card.innerHTML = `
-      <b>${item.wo}</b><br>
+  BOARD_DATA.forEach(item=>{
+    const el=document.createElement("div");
+    el.className="card "+item.color;
+    el.id=item.id;
+    el.draggable=true;
+    el.innerHTML=`
+      <b>WO ${item.wo}</b><br>
       ${item.loc}<br>
       <small>${item.vendor}</small><br>
-      <button onclick="removeWO('${item.id}')">❌</button>
+      <div style="font-size:11px;margin-top:4px">${item.note||""}</div>
+      <button class="edit" onclick="editWO('${item.id}')">✏ Edit</button>
+      <button class="edit" onclick="removeWO('${item.id}')">❌</button>
     `;
 
-    card.ondragstart = drag;
-
-    document.getElementById(item.status).appendChild(card);
+    el.ondragstart=drag;
+    document.getElementById(item.status).appendChild(el);
   });
 
-  saveData();
+  save();
 }
 
 function addWO(){
-  const wo = prompt("WO Number");
-  if(!wo) return;
+  const item={
+    id:Date.now().toString(),
+    wo:prompt("WO #"),
+    loc:prompt("Location"),
+    vendor:prompt("Vendor"),
+    note:prompt("Note"),
+    status:"new",
+    color:"yellow"
+  };
+  if(!item.wo)return;
+  BOARD_DATA.push(item);
+  render();
+}
+function editWO(id){
+  const item=BOARD_DATA.find(x=>x.id===id);
+  if(!item)return;
+  item.wo=prompt("WO #",item.wo);
+  item.loc=prompt("Location",item.loc);
+  item.vendor=prompt("Vendor",item.vendor);
+  item.note=prompt("Note",item.note);
 
-  BOARD_DATA.push({
-    id: Date.now().toString(),
-    wo,
-    loc: prompt("Location"),
-    vendor: prompt("Vendor"),
-    status: "new"
-  });
 
   render();
 }
 
 function removeWO(id){
-  BOARD_DATA = BOARD_DATA.filter(x => x.id !== id);
+  if(!confirm("Delete WO?"))return;
+  BOARD_DATA=BOARD_DATA.filter(x=>x.id!==id);
   render();
 }
 
-function allowDrop(ev){ev.preventDefault();}
-function drag(ev){dragged = ev.target;}
-
-function drop(ev){
-  ev.preventDefault();
-  if(ev.target.classList.contains("column")){
-    ev.target.appendChild(dragged);
-
-    const id = dragged.id;
-    const newStatus = ev.target.id;
-
-    const item = BOARD_DATA.find(x => x.id === id);
+function clearBoard(){
+  if(!confirm("Clear entire board?"))return;
+  BOARD_DATA=[];
+  render();
+}
+function allowDrop(e){e.preventDefault();}
+function drag(e){dragged=e.target;}
+function drop(e){
+  e.preventDefault();
+  if(e.target.classList.contains("column")){
+    e.target.appendChild(dragged);
+    const item=BOARD_DATA.find(x=>x.id===dragged.id);
     if(item){
-      item.status = newStatus;
+      item.status=e.target.id;
+
+
+      if(e.target.id==="confirmed")item.color="green";
+      else if(e.target.id==="materials")item.color="purple";
+      else if(e.target.id==="action")item.color="yellow";
     }
 
-    saveData();
-    sendUpdateToFlow(id, newStatus);
+    render();
   }
 }
 
-// ========================
-// 🔗 POWER AUTOMATE HOOKS
-// ========================
-
-const FLOW_GET = "PASTE_GET_URL_HERE";
-const FLOW_UPDATE = "PASTE_UPDATE_URL_HERE";
-
-async function loadFromFlow(){
-  if(!FLOW_GET.includes("http")) return;
-
-  const res = await fetch(FLOW_GET);
-  const data = await res.json();
-
-  BOARD_DATA = data;
-  render();
-}
-
-function sendUpdateToFlow(id,status){
-  if(!FLOW_UPDATE.includes("http")) return;
-
-  fetch(FLOW_UPDATE, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({id,status})
-  });
-}
-
-function syncToFlow(){
-  alert("Sync triggered (you can expand this)");
-}
-
-// ========================
 // INIT
-// ========================
-
-if(BOARD_DATA.length){
-  render();
-} else {
-  // fallback example
-  BOARD_DATA = [
-    {id:"1",wo:"1847929",loc:"NJ Store",vendor:"Vendor A",status:"new"}
-  ];
-  render();
+if(!BOARD_DATA.length){
+  BOARD_DATA=[{id:"1",wo:"1847929",loc:"Example Store",vendor:"Vendor",note:"Sample note",status:"new",color:"yellow"}];
 }
-
-// OPTIONAL: auto-load from Power Automate
-// loadFromFlow();
-
+render();
 </script>
-
 </body>
 </html>
