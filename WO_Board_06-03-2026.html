@@ -1,133 +1,215 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>RSM WO Board (Full Custom)</title>
+
 <style>
-body{font-family:Arial;background:#0f1117;color:#e2e8f0;padding:16px}
-.board{display:flex;gap:20px}
-.column{flex:1;background:#1e293b;padding:10px;border-radius:6px;min-height:300px}
-.card{background:#0f172a;padding:10px;margin-bottom:10px;border-radius:6px;cursor:grab;border-left:4px solid #3b82f6}
-.card.green{border-color:#22c55e}
-.card.yellow{border-color:#fbbf24}
-.card.purple{border-color:#8b5cf6}
-.header{display:flex;gap:10px;margin-bottom:10px}
-button{padding:6px 10px;border:none;border-radius:4px;cursor:pointer}
-.add{background:#16a34a;color:white}
-.save{background:#1d4ed8;color:white}
-.edit{background:#334155;color:#e2e8f0;margin-top:5px}
+body {
+  font-family: Arial;
+  background: #0f1117;
+  color: #e2e8f0;
+  padding: 16px;
+}
+
+.board {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+  background: #1e293b;
+  padding: 10px;
+  border-radius: 6px;
+  min-height: 300px;
+}
+
+.card {
+  background: #0f172a;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  cursor: grab;
+  border-left: 4px solid #3b82f6;
+}
+
+.card.green { border-color: #22c55e; }
+.card.yellow { border-color: #fbbf24; }
+.card.purple { border-color: #8b5cf6; }
+
+.header {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add { background: #16a34a; color: white; }
+.clear { background: #dc2626; color: white; }
+.edit { background: #334155; color: #e2e8f0; margin-top: 5px; }
 </style>
 </head>
+
 <body>
 
-<h2>🧩 RSM WO Board (Full Custom)</h2>
+<h2>🧩 RSM WO Board (Live)</h2>
+
 <div class="header">
   <button class="add" onclick="addWO()">➕ Add WO</button>
-  <button class="save" onclick="clearBoard()">🧹 Clear</button>
+  <button class="clear" onclick="clearBoard()">🧹 Clear Board</button>
 </div>
 
 <div class="board">
-  <div class="column" id="new" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>⚡ New</h3></div>
-  <div class="column" id="confirmed" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>✅ Confirmed</h3></div>
-  <div class="column" id="action" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>⚠ Needs Action</h3></div>
-  <div class="column" id="materials" ondrop="drop(event)" ondragover="allowDrop(event)"><h3>📦 Materials</h3></div>
+  <div class="column" id="new" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>⚡ New</h3>
+  </div>
+
+  <div class="column" id="confirmed" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>✅ Confirmed</h3>
+  </div>
+
+  <div class="column" id="action" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>⚠ Needs Action</h3>
+  </div>
+
+  <div class="column" id="materials" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <h3>📦 Materials</h3>
+  </div>
 </div>
 
 <script>
+
 let BOARD_DATA = JSON.parse(localStorage.getItem("board_data") || "[]");
 let dragged = null;
 
-function save(){localStorage.setItem("board_data",JSON.stringify(BOARD_DATA));}
-function render(){
-  document.querySelectorAll(".column").forEach(c=>{
-    c.querySelectorAll(".card").forEach(x=>x.remove());
+function save() {
+  localStorage.setItem("board_data", JSON.stringify(BOARD_DATA));
+}
+
+function render() {
+  document.querySelectorAll(".column").forEach(col => {
+    col.querySelectorAll(".card").forEach(c => c.remove());
   });
 
-  BOARD_DATA.forEach(item=>{
-    const el=document.createElement("div");
-    el.className="card "+item.color;
-    el.id=item.id;
-    el.draggable=true;
-    el.innerHTML=`
+  BOARD_DATA.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "card " + item.color;
+    card.id = item.id;
+    card.draggable = true;
+
+    card.innerHTML = `
       <b>WO ${item.wo}</b><br>
       ${item.loc}<br>
-      <small>${item.vendor}</small><br>
-      <div style="font-size:11px;margin-top:4px">${item.note||""}</div>
+      <small>${item.vendor}</small>
+      <div style="font-size:11px;margin-top:5px">${item.note || ""}</div>
+
       <button class="edit" onclick="editWO('${item.id}')">✏ Edit</button>
-      <button class="edit" onclick="removeWO('${item.id}')">❌</button>
+      <button class="edit" onclick="removeWO('${item.id}')">❌ Delete</button>
     `;
 
-    el.ondragstart=drag;
-    document.getElementById(item.status).appendChild(el);
+    card.ondragstart = drag;
+
+    document.getElementById(item.status).appendChild(card);
   });
 
   save();
 }
 
-function addWO(){
-  const item={
-    id:Date.now().toString(),
-    wo:prompt("WO #"),
-    loc:prompt("Location"),
-    vendor:prompt("Vendor"),
-    note:prompt("Note"),
-    status:"new",
-    color:"yellow"
-  };
-  if(!item.wo)return;
-  BOARD_DATA.push(item);
-  render();
-}
-function editWO(id){
-  const item=BOARD_DATA.find(x=>x.id===id);
-  if(!item)return;
-  item.wo=prompt("WO #",item.wo);
-  item.loc=prompt("Location",item.loc);
-  item.vendor=prompt("Vendor",item.vendor);
-  item.note=prompt("Note",item.note);
+function addWO() {
+  const wo = prompt("WO Number:");
+  if (!wo) return;
 
+  BOARD_DATA.push({
+    id: Date.now().toString(),
+    wo,
+    loc: prompt("Location:") || "",
+    vendor: prompt("Vendor:") || "",
+    note: prompt("Note:") || "",
+    status: "new",
+    color: "yellow"
+  });
 
   render();
 }
 
-function removeWO(id){
-  if(!confirm("Delete WO?"))return;
-  BOARD_DATA=BOARD_DATA.filter(x=>x.id!==id);
+function editWO(id) {
+  const item = BOARD_DATA.find(x => x.id === id);
+  if (!item) return;
+
+  item.wo = prompt("WO #", item.wo) || item.wo;
+  item.loc = prompt("Location", item.loc) || item.loc;
+  item.vendor = prompt("Vendor", item.vendor) || item.vendor;
+  item.note = prompt("Note", item.note) || item.note;
+
   render();
 }
 
-function clearBoard(){
-  if(!confirm("Clear entire board?"))return;
-  BOARD_DATA=[];
+function removeWO(id) {
+  if (!confirm("Delete this WO?")) return;
+
+  BOARD_DATA = BOARD_DATA.filter(x => x.id !== id);
   render();
 }
-function allowDrop(e){e.preventDefault();}
-function drag(e){dragged=e.target;}
-function drop(e){
+
+function clearBoard() {
+  if (!confirm("Clear entire board?")) return;
+
+  BOARD_DATA = [];
+  render();
+}
+
+function allowDrop(e) {
   e.preventDefault();
-  if(e.target.classList.contains("column")){
+}
+
+function drag(e) {
+  dragged = e.target;
+}
+
+function drop(e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains("column")) {
     e.target.appendChild(dragged);
-    const item=BOARD_DATA.find(x=>x.id===dragged.id);
-    if(item){
-      item.status=e.target.id;
 
+    const item = BOARD_DATA.find(x => x.id === dragged.id);
+    if (item) {
+      item.status = e.target.id;
 
-      if(e.target.id==="confirmed")item.color="green";
-      else if(e.target.id==="materials")item.color="purple";
-      else if(e.target.id==="action")item.color="yellow";
+      if (item.status === "confirmed") item.color = "green";
+      else if (item.status === "materials") item.color = "purple";
+      else item.color = "yellow";
     }
 
     render();
   }
 }
 
-// INIT
-if(!BOARD_DATA.length){
-  BOARD_DATA=[{id:"1",wo:"1847929",loc:"Example Store",vendor:"Vendor",note:"Sample note",status:"new",color:"yellow"}];
+// INITIAL LOAD
+if (!BOARD_DATA.length) {
+  BOARD_DATA = [
+    {
+      id: "1",
+      wo: "1847929",
+      loc: "Example Store",
+      vendor: "Vendor",
+      note: "Sample WO",
+      status: "new",
+      color: "yellow"
+    }
+  ];
 }
+
 render();
+
 </script>
+
 </body>
 </html>
